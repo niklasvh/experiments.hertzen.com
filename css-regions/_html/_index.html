@@ -1,0 +1,237 @@
+<style>
+    .sample {
+        width:100%;
+        height:240px;
+        background: #cccccc;
+        overflow:hidden;
+        position:relative;
+
+    }
+    .sample div {
+        position:absolute;
+        top:0;
+        left:0;
+        color: #aaaaaa;
+        font-size:6px;
+        padding:10px;
+    }
+
+    .sample span {
+        border-bottom:2px dashed black;
+        width:100%;
+        display:block;
+        position:relative;
+
+        height:40px;
+
+        -webkit-animation-duration: 4s;  
+
+        -webkit-animation-timing-function:linear;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-name: horizontal;  
+
+    }
+
+
+
+    .sample span:nth-of-type(2) {
+        -webkit-animation-delay: 0.2s;
+    }
+
+    .sample span:nth-of-type(3) {
+        -webkit-animation-delay: 0.4s;
+    }
+
+    .sample span:nth-of-type(4) {
+        -webkit-animation-delay: 0.6s;
+    }
+
+    .sample span:nth-of-type(5) {
+        -webkit-animation-delay: 0.8s;
+    }
+
+    .sample span:nth-of-type(6) {
+        -webkit-animation-delay: 1s;
+    }
+
+    @-webkit-keyframes horizontal {  
+        0% { width:0%; } 
+    20% { width:0%; } 
+    50% { width:100%; } 
+    100% { width:100%; } 
+    }
+
+
+    .sample2 > .sample {
+        -webkit-transform:rotate(90deg);
+        -moz-transform:rotate(90deg);
+        -o-transform:rotate(90deg);
+        -ms-transform:rotate(90deg);
+        transform:rotate(90deg);
+    }
+
+
+</style>
+
+<div class="container">
+    <h1>CSS Regions</h1>
+    <p>
+        <a href="http://www.w3.org/TR/css3-regions/">CSS regions</a> allows content to flow through multiple elements. It allows you to modify the standard flow of content, allowing you to customize how content is grouped and displayed.
+        I won't really go into much detail on the basics of CSS regions, so if you are interested to read more about them, you can check out the <a href="http://www.w3.org/TR/css3-regions/">spec</a> or <a href="http://www.adobe.com/devnet/html5/articles/css3-regions.html">article at Adobe</a>.
+    </p>
+    <p>
+        Getting the option to split a single content item into multiple items opens a lot of new different things you can do and I'm not talking about the type of stuff illustrated in the Adobe examples. For images, this has been possible for a long time with the use of <code>background-position</code> and for example commonly used with sprites. 
+        However, for other type of content like normal HTML, you haven't been able to split the content into multiple items, without actually cloning the original content or splitting the actual content.
+    </p>
+
+
+    <div class="row">
+        <div class="span6">
+            <h2>Just vertical cropping?</h2>
+            <p>
+                By default, the content is broken up as it leaves the vertical space allocated to it. If a region has a <code>height</code> of <code>100px</code> 
+                and the content has a <code>height</code> of <code>120px</code>, <code>20px</code> of that content will flow into the next region. Like wise, if each region has a height of <code>20px</code>, the content will be split among 6 regions.
+            </p>
+
+            <p>
+                It certainly would be nice to have a clean way to select whether the content should be clipped vertically or horizontally. However, we can rotate the content in 90 degrees and then wrap it inside another element, which is used as the <code>flow-from</code> element which allows us to do cropping at different angles.
+            </p>
+            <p>
+                So we can either do the cropping vertically or horizontally, but what about both at the same time? Sure, you can do either the horizontal or vertical cropping first, flow those items into new elements which are rotated 90 degrees, and then perform another <code>from-from</code> into a final container.
+            </p>
+
+        </div>
+        <div class="span5">
+            <div class="thumbnail">
+                <div class="sample">
+                    <div>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                        <br /><br />
+                        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <br /><br />
+                        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <br /><br />            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                        <br /><br />
+                        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <br /><br />
+                        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <br /><br />
+                        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <br /><br />
+                        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <br /><br />            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                        <br /><br />
+                        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <br /><br />
+                        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+                    </div>
+
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+
+                </div>
+                <div class="caption">
+                    <h5>Vertical cropping</h5>
+                    <p>By default, the content flows from one region to another vertically.</p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="span5">
+            <div class="thumbnail">
+                <div class="sample2 sample">
+                    <div class="sample">
+                        <div>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                            <br /><br />
+                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            <br /><br />
+                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            <br /><br />            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                            <br /><br />
+                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            <br /><br />
+                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            <br /><br />
+                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            <br /><br />
+                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            <br /><br />            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                            <br /><br />
+                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            <br /><br />
+                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+                        </div>
+
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+
+                    </div>
+
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="span7">
+            <h2>Multiple splitting</h2>
+            <p>Once the second set of splits has been done, the content can be rotated back to its original rotation and can be used with <code>flow-into</code>. The items will still need to be gathered in the right order, but through CSS the actual elements can be positioned whatever way necessary.</p>
+            <p>These examples just illustrate how to do square/rectangle crops, but by varying the rotation angle, any shape can be cropped out. Do note that in those cases it may become 
+                necessary to clone the content, which is relatively easy to do with the use of <a href="http://www.webkit.org/blog/182/css-reflections/">CSS reflections</a>, and although it is a bit tricky, the method should be pretty self explanatory.</p>
+
+            <p>There property <code>wrap-shape</code> could also be used to further modify how the content is displayed, and shape it into a specific polygon shape. </p>
+        </div>
+    </div>
+
+    <h2>So now what?</h2>
+    <p>Well I didn't spend much more than a couple of hours and I found a number of interesting things you can do with this method. Unfortunately, the webkit implementation of CSS regions still has <strong>a lot</strong> of bugs (from which some should be evident in the examples), but here are a few things that I threw up and are somewhat working:
+    </p>
+    <ul>
+
+        <li> <a href="transition.html">Content clipping</a></li>
+        <li> <a href="bend.html">Bending content</a></li>
+        <li> <a href="bend-animated.html">Bending content (animated)</a></li>
+        <li> <a href="dof.html">Depth of field</a> (requires CSS filters, Chrome 19?)</li>
+
+    </ul>
+    <p>As webkit is as of writing this the only one with regions enabled in stable builds, all the examples are limited to the webkit implementation of CSS regions.</p>
+    
+    <h2>Final thoughts</h2>
+    
+    <p>Once <code>@region</code> becomes available and has better support for the planned properties it should support, there are tons of new stuff you could do with CSS that has previously required you to use JS. Among other things, collision detection through some <a href="https://plus.google.com/115030581977322198102/posts/Qo6T85W8sFQ">media-query-iframe-hackery</a> would be possible,
+        but I personally would love to see <code>animations</code> become available among the supported properties for <a href="http://www.w3.org/TR/css3-regions/#the-at-region-style-rule">@region</a>. In fact, it is perhaps the biggest dissapointment I had with regions and the <code>@region</code> rule, when I noticed how limited the supported properties list was.
+    
+    </p>
+    <h3>Bugs and more bugs</h3>
+    <p>Another issue I had and which will become evident when playing around with CSS regions or checking the examples I've created, is that there are a lot of bugs still present in the webkit implementation. By a lot, I mean that in most cases I would rather expect it not to work than to actual work without flaws. 
+        Apart from just some drawing issues, there are a lot of times you'll just end up with the "Oh snap" crash page (by just using some CSS). 
+    </p>
+    <p>
+        In addition to just the increased exposure to <a href="http://en.wikipedia.org/wiki/Clickjacking">clickjacking</a> (you can basically redress a complete <code>form</code> or whole page now without the user having a clue),
+        there are a number of security concerns that became evident when playing around with the regions. In conclusion, although I love that browsers, especially webkit and Chrome are pushing a lot of new stuff for us to play with, I'm surprised that Chrome doesn't have CSS regions still behind a flag. 
+    </p>
+    
+    <p>As a final note, these examples illustrate different things you can do, but on a more practical level perhaps shouldn't. Please feel free to leave comments or questions at <a href="https://twitter.com/niklasvh">@niklasvh</a> or at <a href="https://plus.google.com/115030581977322198102/posts">Google+</a>.
+    
+
+</div>

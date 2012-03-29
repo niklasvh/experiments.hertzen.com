@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>CSS Regions</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Niklas von Hertzen">
+
+        <!-- Le styles -->
+        <link href="/base/css/bootstrap.css" rel="stylesheet">
+        <link href="/base/css/_style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons 
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        -->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://experiments.hertzen.com/css-regions/">CSS Regions</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+    <li><a href="index.html">Introduction</a></li>
+    <li><a href="transition.html">Content clipping</a></li>
+    <li><a href="bend.html">Bending content</a></li>
+    <li><a href="dof.html">Depth of field</a></li>
+</ul>
+                    </div><!--/.nav-collapse -->
+
+                    <p class="navbar-text pull-right" style="padding-top:5px;margin-bottom:-5px;">
+
+
+
+                        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://experiments.hertzen.com/css-regions/"  data-count="horizontal" data-via="niklasvh">Tweet</a>
+                      
+                        <!-- Place this tag where you want the +1 button to render -->
+                        <g:plusone size="medium" annotation="inline" href="http://experiments.hertzen.com/css-regions/" width="250"></g:plusone>
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+   
+
+<style>
+    #items {
+        -webkit-flow: "content";
+        -webkit-flow-into: content;
+
+    }
+
+    #items > * {
+        width: 1200px;
+        height: 650px;
+        position:absolute;
+        left:0;
+        top:0;
+        z-index:50;
+        display:none;
+    }
+
+    #items *:first-child {
+        display:block;
+    }
+
+    #items > *:target {
+        display:block;
+    }
+
+    #test {
+        -webkit-flow: "gone";
+        -webkit-flow-into: gone;
+        position:absolute;
+        z-index:9999999;
+    }
+    #bend-animated{
+        display:none; 
+        margin:0 auto;margin-bottom:200px; width:100px;
+    }
+
+
+</style>
+
+
+
+<div class="container">
+    <div id="test">
+        <div class="alert alert-block alert-error fade in">
+            <h4 class="alert-heading">Uh oh!</h4>
+            <p>Looks like your browser doesn't support <a href="http://www.w3.org/TR/css3-regions/">CSS regions</a>. You can see a list of supporting browsers <a href="http://caniuse.com/#search=regions">here</a>.</p>
+
+        </div>
+    </div>
+
+    <div class="alert alert-info">
+
+        <strong>Important!</strong> Due to some bugs, you may need to force Chrome to redraw the window for content to display/update. You can achieve this by for example opening/closing the developer console by hitting <strong>Ctrl + Shift + J</strong> on PC, or by simply tabbing out or tabbing in. This could be achieved by JavaScript as well, but I wanted to keep the examples 100% JS free.
+    </div>
+
+
+
+    <div class="btn-group" style="width:200px;margin:20px auto;">
+        <a href="#html" class="btn">HTML</a>
+        <a href="#iframe" class="btn">iframe</a>
+        <a href="#shapeimage" class="btn">Image</a>
+    </div>
+    <div id="bend-animated">    <a href="bend-animated.html" class="btn btn-primary btn-large">Animated</a>
+    </div>
+
+</div>
+<div style="width:1200px;  margin:0 auto;  ">
+
+    <div id="items">
+        <div id="html">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+        </div>
+        <iframe src="http://www.cnn.com" frameborder="0" id="iframe" ></iframe>  
+        <img src="image.jpg" alt="" id="shapeimage" />
+    </div>
+
+
+<style>
+
+
+
+    #items > * {
+        -webkit-transform:rotate(90deg);
+        -webkit-transform-origin: 0% 0%;
+        margin-left:650px;
+        margin-right:-650px;
+    }
+
+    #transition div {
+        width: 650px;
+        height: 10px;
+
+    }
+
+
+
+
+    .parent div {
+        content: -webkit-from-flow(content);
+        -webkit-flow-from: content;
+    }
+
+
+    #transition {
+        margin-top:650px;
+        -webkit-transform:rotate(-90deg);
+        -webkit-transform-origin: 0% 0%;
+        -webkit-transform-style: preserve-3d;
+        -webkit-perspective: 2000px;
+    }
+
+
+
+
+
+
+
+    .parent {
+        -webkit-transform-origin: top left;
+    }
+
+
+
+    .top > div > div {
+
+
+        z-index:99;
+        position:relative;
+
+
+        -webkit-animation-duration: 2s;  
+
+        -webkit-animation-direction: alternate;
+        -webkit-animation-timing-function:linear;
+        -webkit-animation-iteration-count: 9999;
+        -webkit-animation-name: anim2;  
+
+    }     
+
+    .top:nth-child(even) > div:nth-child(odd) > div, .top:nth-child(odd) > div:nth-child(even) > div {
+        -webkit-animation-name: anim1 !important;  
+    } 
+
+
+
+
+
+    .parent {
+        -webkit-animation-duration: 2.1s;  
+
+        -webkit-animation-direction: alternate;
+        -webkit-animation-timing-function:linear;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-name: flip;  
+    }
+
+
+    @-webkit-keyframes flip {  
+        0% { -webkit-transform: translate3d(0px, -0.0015230484360877483px, 0.17452406437283513px) rotateX(1deg);} 
+    0.4761904761904762% { -webkit-transform: translate3d(0px, -0.007614778245130793px, 0.5235190313978448px) rotateX(2deg);} 
+    0.9523809523809524% { -webkit-transform: translate3d(0px, -0.021319430699392683px, 1.0468785938272833px) rotateX(3deg);} 
+    1.4285714285714286% { -webkit-transform: translate3d(0px, -0.04567892810115026px, 1.7444433312685363px) rotateX(4deg);} 
+    1.9047619047619049% { -webkit-transform: translate3d(0px, -0.08373194718369525px, 2.616000758745118px) rotateX(5deg);} 
+    2.380952380952381% { -webkit-transform: translate3d(0px, -0.1385129935009619px, 3.6612853914216528px) rotateX(6deg);} 
+    2.857142857142857% { -webkit-transform: translate3d(0px, -0.21305147708774186px, 4.879978825473128px) rotateX(7deg);} 
+    3.3333333333333335% { -webkit-transform: translate3d(0px, -0.3103707896720387px, 6.271709835073782px) rotateX(8deg);} 
+    3.8095238095238098% { -webkit-transform: translate3d(0px, -0.4334873837206601px, 7.83605448547609px) rotateX(9deg);} 
+    4.285714285714286% { -webkit-transform: translate3d(0px, -0.5854098535985806px, 9.572536262145393px) rotateX(10deg);} 
+    4.761904761904762% { -webkit-transform: translate3d(0px, -0.7691380191219412px, 11.48062621591084px) rotateX(11deg);} 
+    5.238095238095238% { -webkit-transform: translate3d(0px, -0.9876620117838844px, 13.559743124088435px) rotateX(12deg);} 
+    5.714285714285714% { -webkit-transform: translate3d(0px, -1.2439613639315326px, 15.809253667527084px) rotateX(13deg);} 
+    6.190476190476191% { -webkit-transform: translate3d(0px, -1.541004101171568px, 18.22847262352376px) rotateX(14deg);} 
+    6.666666666666667% { -webkit-transform: translate3d(0px, -1.8817458382808852px, 20.81666307454897px) rotateX(15deg);} 
+    7.142857142857142% { -webkit-transform: translate3d(0px, -2.269128878897696px, 23.57303663271896px) rotateX(16deg);} 
+    7.6190476190476195% { -webkit-transform: translate3d(0px, -2.7060813192673425px, 26.496753679946327px) rotateX(17deg);} 
+    8.095238095238095% { -webkit-transform: translate3d(0px, -3.195516156315808px, 29.5869236236958px) rotateX(18deg);} 
+    8.571428571428571% { -webkit-transform: translate3d(0px, -3.740330400322639px, 32.84260516826737px) rotateX(19deg);} 
+    9.047619047619047% { -webkit-transform: translate3d(0px, -4.343404192463554px, 36.262806601524055px) rotateX(20deg);} 
+    9.523809523809524% { -webkit-transform: translate3d(0px, -5.007599927491537px, 39.84648609697706px) rotateX(21deg);} 
+    10% { -webkit-transform: translate3d(0px, -5.735761381823663px, 43.59255203113618px) rotateX(22deg);} 
+    10.476190476190476% { -webkit-transform: translate3d(0px, -6.5307128472992595px, 47.499863316028915px) rotateX(23deg);} 
+    10.952380952380953% { -webkit-transform: translate3d(0px, -7.395258270873251px, 51.567229746786914px) rotateX(24deg);} 
+    11.428571428571429% { -webkit-transform: translate3d(0px, -8.332180400506752px, 55.79341236419391px) rotateX(25deg);} 
+    11.904761904761903% { -webkit-transform: translate3d(0px, -9.344239937515082px, 60.17712383208469px) rotateX(26deg);} 
+    12.380952380952381% { -webkit-transform: translate3d(0px, -10.434174695631404px, 64.71702882948016px) rotateX(27deg);} 
+    12.857142857142856% { -webkit-transform: translate3d(0px, -11.604698767042134px, 69.41174445733907px) rotateX(28deg);} 
+    13.333333333333334% { -webkit-transform: translate3d(0px, -12.858501695648176px, 74.25984065980244px) rotateX(29deg);} 
+    13.80952380952381% { -webkit-transform: translate3d(0px, -14.198247657803789px, 79.25984065980244px) rotateX(30deg);} 
+    14.285714285714285% { -webkit-transform: translate3d(0px, -15.626574650782665px, 84.41022140890297px) rotateX(31deg);} 
+    14.761904761904763% { -webkit-transform: translate3d(0px, -17.146093689218404px, 89.70941405123502px) rotateX(32deg);} 
+    15.238095238095239% { -webkit-transform: translate3d(0px, -18.759388009764162px, 95.15580440138528px) rotateX(33deg);} 
+    15.714285714285714% { -webkit-transform: translate3d(0px, -20.469012284213747px, 100.74773343609274px) rotateX(34deg);} 
+    16.19047619047619% { -webkit-transform: translate3d(0px, -22.27749184132383px, 106.4834977996032px) rotateX(35deg);} 
+    16.666666666666664% { -webkit-transform: translate3d(0px, -24.187321897574357px, 112.36135032252793px) rotateX(36deg);} 
+    17.142857142857142% { -webkit-transform: translate3d(0px, -26.20096679710143px, 118.3795005540484px) rotateX(37deg);} 
+    17.61904761904762% { -webkit-transform: translate3d(0px, -28.32085926103421px, 124.53611530730498px) rotateX(38deg);} 
+    18.095238095238095% { -webkit-transform: translate3d(0px, -30.5493996464645px, 130.82931921780335px) rotateX(39deg);} 
+    18.571428571428573% { -webkit-transform: translate3d(0px, -32.88895521527472px, 137.25719531466873px) rotateX(40deg);} 
+    19.047619047619047% { -webkit-transform: translate3d(0px, -35.341859413047px, 143.8177856045738px) rotateX(41deg);} 
+    19.523809523809526% { -webkit-transform: translate3d(0px, -37.91041115827306px, 150.50909166816237px) rotateX(42deg);} 
+    20% { -webkit-transform: translate3d(0px, -40.596874142081354px, 157.32907526878736px) rotateX(43deg);} 
+    20.476190476190474% { -webkit-transform: translate3d(0px, -43.40347613869484px, 164.27565897337735px) rotateX(44deg);} 
+    20.952380952380953% { -webkit-transform: translate3d(0px, -46.332408326829366px, 171.34672678524282px) rotateX(45deg);} 
+    21.428571428571427% { -webkit-transform: translate3d(0px, -49.3858246222394px, 178.54012478862933px) rotateX(46deg);} 
+    21.904761904761905% { -webkit-transform: translate3d(0px, -52.56584102161441px, 185.85366180482103px) rotateX(47deg);} 
+    22.380952380952383% { -webkit-transform: translate3d(0px, -55.874534958025826px, 193.28511005959498px) rotateX(48deg);} 
+    22.857142857142858% { -webkit-transform: translate3d(0px, -59.313944668120754px, 200.8322058618227px) rotateX(49deg);} 
+    23.333333333333332% { -webkit-transform: translate3d(0px, -62.886068571255365px, 208.49265029301247px) rotateX(50deg);} 
+    23.809523809523807% { -webkit-transform: translate3d(0px, -66.59286466075699px, 216.2641099075822px) rotateX(51deg);} 
+    24.285714285714285% { -webkit-transform: translate3d(0px, -70.43624990750041px, 224.1442174436494px) rotateX(52deg);} 
+    24.761904761904763% { -webkit-transform: translate3d(0px, -74.41809967597993px, 232.13057254412234px) rotateX(53deg);} 
+    25.238095238095237% { -webkit-transform: translate3d(0px, -78.5402471530552px, 240.22074248787183px) rotateX(54deg);} 
+    25.71428571428571% { -webkit-transform: translate3d(0px, -82.80448278954475px, 248.41226293076176px) rotateX(55deg);} 
+    26.190476190476193% { -webkit-transform: translate3d(0px, -87.21255375483729px, 256.70263865631216px) rotateX(56deg);} 
+    26.666666666666668% { -webkit-transform: translate3d(0px, -91.76616340468702px, 265.0893443357664px) rotateX(57deg);} 
+    27.142857142857142% { -webkit-transform: translate3d(0px, -96.46697076235498px, 273.5698252973306px) rotateX(58deg);} 
+    27.61904761904762% { -webkit-transform: translate3d(0px, -101.31659001325443px, 282.1414983043517px) rotateX(59deg);} 
+    28.095238095238095% { -webkit-transform: translate3d(0px, -106.31659001325443px, 290.8017523421961px) rotateX(60deg);} 
+    28.57142857142857% { -webkit-transform: translate3d(0px, -111.46849381079106px, 299.54794941359006px) rotateX(61deg);} 
+    29.04761904761905% { -webkit-transform: translate3d(0px, -116.77377818293215px, 308.3774253421793px) rotateX(62deg);} 
+    29.523809523809526% { -webkit-transform: translate3d(0px, -122.23387318553668px, 317.287490584063px) rotateX(63deg);} 
+    30% { -webkit-transform: translate3d(0px, -127.8501617176459px, 326.27543104705467px) rotateX(64deg);} 
+    30.476190476190478% { -webkit-transform: translate3d(0px, -133.6239791002389px, 335.33850891742117px) rotateX(65deg);} 
+    30.952380952380953% { -webkit-transform: translate3d(0px, -139.5566126694809px, 344.4739634938472px) rotateX(66deg);} 
+    31.428571428571427% { -webkit-transform: translate3d(0px, -145.64930138458817px, 353.6790120283716px) rotateX(67deg);} 
+    31.9047619047619% { -webkit-transform: translate3d(0px, -151.90323545042907px, 362.95085057403946px) rotateX(68deg);} 
+    32.38095238095238% { -webkit-transform: translate3d(0px, -158.31955595497607px, 372.2866548390115px) rotateX(69deg);} 
+    32.857142857142854% { -webkit-transform: translate3d(0px, -164.89935452171937px, 381.6835810468706px) rotateX(70deg);} 
+    33.33333333333333% { -webkit-transform: translate3d(0px, -171.64367297714782px, 391.13876680286376px) rotateX(71deg);} 
+    33.80952380952381% { -webkit-transform: translate3d(0px, -178.55350303339833px, 400.6493319658153px) rotateX(72deg);} 
+    34.285714285714285% { -webkit-transform: translate3d(0px, -185.62978598617096px, 410.21237952544567px) rotateX(73deg);} 
+    34.76190476190476% { -webkit-transform: translate3d(0px, -192.87341242800096px, 419.82499648482883px) rotateX(74deg);} 
+    35.23809523809524% { -webkit-transform: translate3d(0px, -200.28522197697575px, 429.4842547477195px) rotateX(75deg);} 
+    35.714285714285715% { -webkit-transform: translate3d(0px, -207.86600302097906px, 439.18721201047947px) rotateX(76deg);} 
+    36.19047619047619% { -webkit-transform: translate3d(0px, -215.61649247754042px, 448.9309126583318px) rotateX(77deg);} 
+    36.666666666666664% { -webkit-transform: translate3d(0px, -223.53737556936284px, 458.71238866566983px) rotateX(78deg);} 
+    37.142857142857146% { -webkit-transform: translate3d(0px, -231.62928561559738px, 468.5286605001465px) rotateX(79deg);} 
+    37.61904761904762% { -webkit-transform: translate3d(0px, -239.89280383892807px, 478.37673803026854px) rotateX(80deg);} 
+    38.095238095238095% { -webkit-transform: translate3d(0px, -248.32845918852576px, 488.25362143621993px) rotateX(81deg);} 
+    38.57142857142858% { -webkit-transform: translate3d(0px, -256.9367281789251px, 498.1563021236356px) rotateX(82deg);} 
+    39.04761904761905% { -webkit-transform: translate3d(0px, -265.7180347448736px, 508.08176364004885px) rotateX(83deg);} 
+    39.523809523809526% { -webkit-transform: translate3d(0px, -274.67275011219704px, 518.0269825937315px) rotateX(84deg);} 
+    40% { -webkit-transform: translate3d(0px, -283.80119268472043px, 527.988929574649px) rotateX(85deg);} 
+    40.476190476190474% { -webkit-transform: translate3d(0px, -293.10362794727916px, 537.9645700772472px) rotateX(86deg);} 
+    40.95238095238095% { -webkit-transform: translate3d(0px, -302.5802683848497px, 547.9508654247929px) rotateX(87deg);} 
+    41.42857142857143% { -webkit-transform: translate3d(0px, -312.2312734178247px, 557.944773694984px) rotateX(88deg);} 
+    41.904761904761905% { -webkit-transform: translate3d(0px, -322.05674935345183px, 567.9432506465479px) rotateX(89deg);} 
+    42.38095238095238% { -webkit-transform: translate3d(0px, -332.05674935345183px, 577.9432506465479px) rotateX(90deg);} 
+    42.857142857142854% { -webkit-transform: translate3d(0px, -342.2312734178247px, 587.9417275981118px) rotateX(91deg);} 
+    43.333333333333336% { -webkit-transform: translate3d(0px, -352.5802683848497px, 597.9356358683028px) rotateX(92deg);} 
+    43.80952380952381% { -webkit-transform: translate3d(0px, -363.10362794727916px, 607.9219312158485px) rotateX(93deg);} 
+    44.285714285714285% { -webkit-transform: translate3d(0px, -373.80119268472043px, 617.8975717184468px) rotateX(94deg);} 
+    44.761904761904766% { -webkit-transform: translate3d(0px, -384.67275011219704px, 627.8595186993642px) rotateX(95deg);} 
+    45.23809523809524% { -webkit-transform: translate3d(0px, -395.7180347448736px, 637.8047376530469px) rotateX(96deg);} 
+    45.714285714285715% { -webkit-transform: translate3d(0px, -406.9367281789251px, 647.7301991694601px) rotateX(97deg);} 
+    46.19047619047619% { -webkit-transform: translate3d(0px, -418.32845918852576px, 657.6328798568758px) rotateX(98deg);} 
+    46.666666666666664% { -webkit-transform: translate3d(0px, -429.89280383892805px, 667.5097632628272px) rotateX(99deg);} 
+    47.14285714285714% { -webkit-transform: translate3d(0px, -441.6292856155973px, 677.3578407929492px) rotateX(100deg);} 
+    47.61904761904761% { -webkit-transform: translate3d(0px, -453.5373755693628px, 687.1741126274259px) rotateX(101deg);} 
+    48.095238095238095% { -webkit-transform: translate3d(0px, -465.61649247754036px, 696.9555886347639px) rotateX(102deg);} 
+    48.57142857142857% { -webkit-transform: translate3d(0px, -477.866003020979px, 706.6992892826163px) rotateX(103deg);} 
+    49.047619047619044% { -webkit-transform: translate3d(0px, -490.28522197697566px, 716.4022465453762px) rotateX(104deg);} 
+    49.523809523809526% { -webkit-transform: translate3d(0px, -502.87341242800085px, 726.0615048082669px) rotateX(105deg);} 
+    50% { -webkit-transform: translate3d(0px, -515.6297859861709px, 735.6741217676501px) rotateX(106deg);} 
+    50.476190476190474% { -webkit-transform: translate3d(0px, -528.5535030333982px, 745.2371693272805px) rotateX(107deg);} 
+    50.95238095238095% { -webkit-transform: translate3d(0px, -541.6436729771477px, 754.747734490232px) rotateX(108deg);} 
+    51.42857142857142% { -webkit-transform: translate3d(0px, -554.8993545217193px, 764.2029202462252px) rotateX(109deg);} 
+    51.90476190476191% { -webkit-transform: translate3d(0px, -568.319555954976px, 773.5998464540843px) rotateX(110deg);} 
+    52.38095238095239% { -webkit-transform: translate3d(0px, -581.903235450429px, 782.9356507190563px) rotateX(111deg);} 
+    52.85714285714286% { -webkit-transform: translate3d(0px, -595.6493013845881px, 792.2074892647241px) rotateX(112deg);} 
+    53.333333333333336% { -webkit-transform: translate3d(0px, -609.5566126694808px, 801.4125377992485px) rotateX(113deg);} 
+    53.80952380952381% { -webkit-transform: translate3d(0px, -623.6239791002389px, 810.5479923756745px) rotateX(114deg);} 
+    54.285714285714285% { -webkit-transform: translate3d(0px, -637.8501617176458px, 819.6110702460411px) rotateX(115deg);} 
+    54.761904761904766% { -webkit-transform: translate3d(0px, -652.2338731855366px, 828.5990107090328px) rotateX(116deg);} 
+    55.23809523809524% { -webkit-transform: translate3d(0px, -666.7737781829321px, 837.5090759509164px) rotateX(117deg);} 
+    55.714285714285715% { -webkit-transform: translate3d(0px, -681.4684938107911px, 846.3385518795058px) rotateX(118deg);} 
+    56.19047619047619% { -webkit-transform: translate3d(0px, -696.3165900132544px, 855.0847489508997px) rotateX(119deg);} 
+    56.666666666666664% { -webkit-transform: translate3d(0px, -711.3165900132544px, 863.7450029887441px) rotateX(120deg);} 
+    57.14285714285714% { -webkit-transform: translate3d(0px, -726.466970762355px, 872.3166759957652px) rotateX(121deg);} 
+    57.61904761904761% { -webkit-transform: translate3d(0px, -741.7661634046871px, 880.7971569573294px) rotateX(122deg);} 
+    58.0952380952381% { -webkit-transform: translate3d(0px, -757.2125537548374px, 889.1838626367837px) rotateX(123deg);} 
+    58.57142857142858% { -webkit-transform: translate3d(0px, -772.8044827895449px, 897.4742383623342px) rotateX(124deg);} 
+    59.04761904761905% { -webkit-transform: translate3d(0px, -788.5402471530554px, 905.6657588052241px) rotateX(125deg);} 
+    59.523809523809526% { -webkit-transform: translate3d(0px, -804.4180996759801px, 913.7559287489736px) rotateX(126deg);} 
+    60% { -webkit-transform: translate3d(0px, -820.4362499075006px, 921.7422838494465px) rotateX(127deg);} 
+    60.476190476190474% { -webkit-transform: translate3d(0px, -836.5928646607572px, 929.6223913855138px) rotateX(128deg);} 
+    60.952380952380956% { -webkit-transform: translate3d(0px, -852.8860685712556px, 937.3938510000835px) rotateX(129deg);} 
+    61.42857142857143% { -webkit-transform: translate3d(0px, -869.3139446681209px, 945.0542954312733px) rotateX(130deg);} 
+    61.904761904761905% { -webkit-transform: translate3d(0px, -885.8745349580261px, 952.6013912335011px) rotateX(131deg);} 
+    62.38095238095238% { -webkit-transform: translate3d(0px, -902.5658410216147px, 960.032839488275px) rotateX(132deg);} 
+    62.857142857142854% { -webkit-transform: translate3d(0px, -919.3858246222396px, 967.3463765044668px) rotateX(133deg);} 
+    63.33333333333333% { -webkit-transform: translate3d(0px, -936.3324083268296px, 974.5397745078533px) rotateX(134deg);} 
+    63.8095238095238% { -webkit-transform: translate3d(0px, -953.4034761386952px, 981.6108423197188px) rotateX(135deg);} 
+    64.28571428571429% { -webkit-transform: translate3d(0px, -970.5968741420817px, 988.5574260243088px) rotateX(136deg);} 
+    64.76190476190476% { -webkit-transform: translate3d(0px, -987.9104111582734px, 995.3774096249338px) rotateX(137deg);} 
+    65.23809523809524% { -webkit-transform: translate3d(0px, -1005.3418594130474px, 1002.0687156885224px) rotateX(138deg);} 
+    65.71428571428571% { -webkit-transform: translate3d(0px, -1022.8889552152751px, 1008.6293059784275px) rotateX(139deg);} 
+    66.19047619047619% { -webkit-transform: translate3d(0px, -1040.549399646465px, 1015.0571820752929px) rotateX(140deg);} 
+    66.66666666666666% { -webkit-transform: translate3d(0px, -1058.3208592610347px, 1021.3503859857913px) rotateX(141deg);} 
+    67.14285714285714% { -webkit-transform: translate3d(0px, -1076.200966797102px, 1027.507000739048px) rotateX(142deg);} 
+    67.61904761904762% { -webkit-transform: translate3d(0px, -1094.187321897575px, 1033.5251509705683px) rotateX(143deg);} 
+    68.0952380952381% { -webkit-transform: translate3d(0px, -1112.2774918413245px, 1039.403003493493px) rotateX(144deg);} 
+    68.57142857142857% { -webkit-transform: translate3d(0px, -1130.4690122842144px, 1045.1387678570036px) rotateX(145deg);} 
+    69.04761904761905% { -webkit-transform: translate3d(0px, -1148.7593880097647px, 1050.730696891711px) rotateX(146deg);} 
+    69.52380952380952% { -webkit-transform: translate3d(0px, -1167.146093689219px, 1056.1770872418613px) rotateX(147deg);} 
+    70% { -webkit-transform: translate3d(0px, -1185.6265746507834px, 1061.4762798841932px) rotateX(148deg);} 
+    70.47619047619048% { -webkit-transform: translate3d(0px, -1204.1982476578046px, 1066.6266606332938px) rotateX(149deg);} 
+    70.95238095238095% { -webkit-transform: translate3d(0px, -1222.858501695649px, 1071.6266606332938px) rotateX(150deg);} 
+    71.42857142857143% { -webkit-transform: translate3d(0px, -1241.604698767043px, 1076.4747568357573px) rotateX(151deg);} 
+    71.9047619047619% { -webkit-transform: translate3d(0px, -1260.4341746956322px, 1081.169472463616px) rotateX(152deg);} 
+    72.38095238095238% { -webkit-transform: translate3d(0px, -1279.344239937516px, 1085.7093774610116px) rotateX(153deg);} 
+    72.85714285714285% { -webkit-transform: translate3d(0px, -1298.3321804005077px, 1090.0930889289025px) rotateX(154deg);} 
+    73.33333333333333% { -webkit-transform: translate3d(0px, -1317.3952582708741px, 1094.3192715463094px) rotateX(155deg);} 
+    73.80952380952381% { -webkit-transform: translate3d(0px, -1336.5307128473px, 1098.3866379770675px) rotateX(156deg);} 
+    74.28571428571429% { -webkit-transform: translate3d(0px, -1355.7357613818244px, 1102.2939492619603px) rotateX(157deg);} 
+    74.76190476190476% { -webkit-transform: translate3d(0px, -1375.0075999274923px, 1106.0400151961194px) rotateX(158deg);} 
+    75.23809523809524% { -webkit-transform: translate3d(0px, -1394.3434041924643px, 1109.6236946915724px) rotateX(159deg);} 
+    75.71428571428571% { -webkit-transform: translate3d(0px, -1413.7403304003233px, 1113.043896124829px) rotateX(160deg);} 
+    76.19047619047619% { -webkit-transform: translate3d(0px, -1433.1955161563164px, 1116.2995776694006px) rotateX(161deg);} 
+    76.66666666666667% { -webkit-transform: translate3d(0px, -1452.706081319268px, 1119.3897476131501px) rotateX(162deg);} 
+    77.14285714285715% { -webkit-transform: translate3d(0px, -1472.2691288788983px, 1122.3134646603776px) rotateX(163deg);} 
+    77.61904761904762% { -webkit-transform: translate3d(0px, -1491.8817458382814px, 1125.0698382185476px) rotateX(164deg);} 
+    78.0952380952381% { -webkit-transform: translate3d(0px, -1511.5410041011721px, 1127.6580286695728px) rotateX(165deg);} 
+    78.57142857142857% { -webkit-transform: translate3d(0px, -1531.2439613639322px, 1130.0772476255695px) rotateX(166deg);} 
+    79.04761904761905% { -webkit-transform: translate3d(0px, -1550.9876620117846px, 1132.3267581690081px) rotateX(167deg);} 
+    79.52380952380952% { -webkit-transform: translate3d(0px, -1570.7691380191227px, 1134.4058750771858px) rotateX(168deg);} 
+    80% { -webkit-transform: translate3d(0px, -1590.5854098535992px, 1136.3139650309513px) rotateX(169deg);} 
+    80.47619047619048% { -webkit-transform: translate3d(0px, -1610.4334873837213px, 1138.0504468076206px) rotateX(170deg);} 
+    80.95238095238095% { -webkit-transform: translate3d(0px, -1630.3103707896726px, 1139.6147914580229px) rotateX(171deg);} 
+    81.42857142857143% { -webkit-transform: translate3d(0px, -1650.2130514770884px, 1141.0065224676234px) rotateX(172deg);} 
+    81.9047619047619% { -webkit-transform: translate3d(0px, -1670.1385129935015px, 1142.2252159016748px) rotateX(173deg);} 
+    82.38095238095238% { -webkit-transform: translate3d(0px, -1690.0837319471843px, 1143.2705005343514px) rotateX(174deg);} 
+    82.85714285714286% { -webkit-transform: translate3d(0px, -1710.0456789281018px, 1144.142057961828px) rotateX(175deg);} 
+    83.33333333333334% { -webkit-transform: translate3d(0px, -1730.0213194307px, 1144.8396226992693px) rotateX(176deg);} 
+    83.80952380952381% { -webkit-transform: translate3d(0px, -1750.0076147782459px, 1145.3629822616988px) rotateX(177deg);} 
+    84.28571428571429% { -webkit-transform: translate3d(0px, -1770.0015230484369px, 1145.7119772287238px) rotateX(178deg);} 
+    84.76190476190476% { -webkit-transform: translate3d(0px, -1790.0000000000007px, 1145.8865012930967px) rotateX(179deg);} 
+    85.23809523809524% { -webkit-transform: translate3d(0px, -1810.0000000000007px, 1145.8865012930967px) rotateX(180deg);} 
+    85.71428571428571% { -webkit-transform: translate3d(0px, -1829.9984769515645px, 1145.7119772287238px) rotateX(181deg);} 
+    86.19047619047619% { -webkit-transform: translate3d(0px, -1849.9923852217555px, 1145.3629822616988px) rotateX(182deg);} 
+    86.66666666666667% { -webkit-transform: translate3d(0px, -1869.9786805693013px, 1144.8396226992693px) rotateX(183deg);} 
+    87.14285714285714% { -webkit-transform: translate3d(0px, -1889.9543210718996px, 1144.142057961828px) rotateX(184deg);} 
+    87.61904761904762% { -webkit-transform: translate3d(0px, -1909.916268052817px, 1143.2705005343514px) rotateX(185deg);} 
+    88.09523809523809% { -webkit-transform: translate3d(0px, -1929.8614870064998px, 1142.2252159016748px) rotateX(186deg);} 
+    88.57142857142857% { -webkit-transform: translate3d(0px, -1949.786948522913px, 1141.0065224676234px) rotateX(187deg);} 
+    89.04761904761904% { -webkit-transform: translate3d(0px, -1969.6896292103288px, 1139.6147914580229px) rotateX(188deg);} 
+    89.52380952380953% { -webkit-transform: translate3d(0px, -1989.56651261628px, 1138.0504468076206px) rotateX(189deg);} 
+    90% { -webkit-transform: translate3d(0px, -2009.4145901464021px, 1136.3139650309513px) rotateX(190deg);} 
+    90.47619047619048% { -webkit-transform: translate3d(0px, -2029.2308619808787px, 1134.4058750771858px) rotateX(191deg);} 
+    90.95238095238095% { -webkit-transform: translate3d(0px, -2049.0123379882166px, 1132.3267581690081px) rotateX(192deg);} 
+    91.42857142857143% { -webkit-transform: translate3d(0px, -2068.7560386360688px, 1130.0772476255695px) rotateX(193deg);} 
+    91.9047619047619% { -webkit-transform: translate3d(0px, -2088.4589958988286px, 1127.6580286695728px) rotateX(194deg);} 
+    92.38095238095238% { -webkit-transform: translate3d(0px, -2108.118254161719px, 1125.0698382185476px) rotateX(195deg);} 
+    92.85714285714286% { -webkit-transform: translate3d(0px, -2127.730871121102px, 1122.3134646603776px) rotateX(196deg);} 
+    93.33333333333333% { -webkit-transform: translate3d(0px, -2147.2939186807325px, 1119.3897476131501px) rotateX(197deg);} 
+    93.80952380952381% { -webkit-transform: translate3d(0px, -2166.804483843684px, 1116.2995776694006px) rotateX(198deg);} 
+    94.28571428571428% { -webkit-transform: translate3d(0px, -2186.259669599677px, 1113.043896124829px) rotateX(199deg);} 
+    94.76190476190476% { -webkit-transform: translate3d(0px, -2205.656595807536px, 1109.6236946915724px) rotateX(200deg);} 
+    95.23809523809523% { -webkit-transform: translate3d(0px, -2224.992400072508px, 1106.0400151961194px) rotateX(201deg);} 
+    95.71428571428572% { -webkit-transform: translate3d(0px, -2244.264238618176px, 1102.2939492619603px) rotateX(202deg);} 
+    96.19047619047619% { -webkit-transform: translate3d(0px, -2263.4692871527004px, 1098.3866379770675px) rotateX(203deg);} 
+    96.66666666666667% { -webkit-transform: translate3d(0px, -2282.6047417291265px, 1094.3192715463094px) rotateX(204deg);} 
+    97.14285714285714% { -webkit-transform: translate3d(0px, -2301.667819599493px, 1090.0930889289025px) rotateX(205deg);} 
+    97.61904761904762% { -webkit-transform: translate3d(0px, -2320.6557600624847px, 1085.7093774610116px) rotateX(206deg);} 
+    98.09523809523809% { -webkit-transform: translate3d(0px, -2339.5658253043684px, 1081.169472463616px) rotateX(207deg);} 
+    98.57142857142858% { -webkit-transform: translate3d(0px, -2358.3953012329575px, 1076.4747568357573px) rotateX(208deg);} 
+    99.04761904761905% { -webkit-transform: translate3d(0px, -2377.1414983043514px, 1071.6266606332938px) rotateX(209deg);} 
+    99.52380952380952% { -webkit-transform: translate3d(0px, -2395.801752342196px, 1066.6266606332938px) rotateX(210deg);} 
+
+    }
+
+
+    .child0 { -webkit-animation-delay: 0s }
+    .child1 { -webkit-animation-delay: 0.01s }
+    .child2 { -webkit-animation-delay: 0.02s }
+    .child3 { -webkit-animation-delay: 0.03s }
+    .child4 { -webkit-animation-delay: 0.04s }
+    .child5 { -webkit-animation-delay: 0.05s }
+    .child6 { -webkit-animation-delay: 0.06s }
+    .child7 { -webkit-animation-delay: 0.07s }
+    .child8 { -webkit-animation-delay: 0.08s }
+    .child9 { -webkit-animation-delay: 0.09s }
+    .child10 { -webkit-animation-delay: 0.1s }
+    .child11 { -webkit-animation-delay: 0.11s }
+    .child12 { -webkit-animation-delay: 0.12s }
+    .child13 { -webkit-animation-delay: 0.13s }
+    .child14 { -webkit-animation-delay: 0.14s }
+    .child15 { -webkit-animation-delay: 0.15s }
+    .child16 { -webkit-animation-delay: 0.16s }
+    .child17 { -webkit-animation-delay: 0.17s }
+    .child18 { -webkit-animation-delay: 0.18s }
+    .child19 { -webkit-animation-delay: 0.19s }
+    .child20 { -webkit-animation-delay: 0.2s }
+    .child21 { -webkit-animation-delay: 0.21s }
+    .child22 { -webkit-animation-delay: 0.22s }
+    .child23 { -webkit-animation-delay: 0.23s }
+    .child24 { -webkit-animation-delay: 0.24s }
+    .child25 { -webkit-animation-delay: 0.25s }
+    .child26 { -webkit-animation-delay: 0.26s }
+    .child27 { -webkit-animation-delay: 0.27s }
+    .child28 { -webkit-animation-delay: 0.28s }
+    .child29 { -webkit-animation-delay: 0.29s }
+    .child30 { -webkit-animation-delay: 0.3s }
+    .child31 { -webkit-animation-delay: 0.31s }
+    .child32 { -webkit-animation-delay: 0.32s }
+    .child33 { -webkit-animation-delay: 0.33s }
+    .child34 { -webkit-animation-delay: 0.34s }
+    .child35 { -webkit-animation-delay: 0.35000000000000003s }
+    .child36 { -webkit-animation-delay: 0.36s }
+    .child37 { -webkit-animation-delay: 0.37s }
+    .child38 { -webkit-animation-delay: 0.38s }
+    .child39 { -webkit-animation-delay: 0.39s }
+    .child40 { -webkit-animation-delay: 0.4s }
+    .child41 { -webkit-animation-delay: 0.41000000000000003s }
+    .child42 { -webkit-animation-delay: 0.42s }
+    .child43 { -webkit-animation-delay: 0.43s }
+    .child44 { -webkit-animation-delay: 0.44s }
+    .child45 { -webkit-animation-delay: 0.45s }
+    .child46 { -webkit-animation-delay: 0.46s }
+    .child47 { -webkit-animation-delay: 0.47000000000000003s }
+    .child48 { -webkit-animation-delay: 0.48s }
+    .child49 { -webkit-animation-delay: 0.49s }
+    .child50 { -webkit-animation-delay: 0.5s }
+    .child51 { -webkit-animation-delay: 0.51s }
+    .child52 { -webkit-animation-delay: 0.52s }
+    .child53 { -webkit-animation-delay: 0.53s }
+    .child54 { -webkit-animation-delay: 0.54s }
+    .child55 { -webkit-animation-delay: 0.55s }
+    .child56 { -webkit-animation-delay: 0.56s }
+    .child57 { -webkit-animation-delay: 0.5700000000000001s }
+    .child58 { -webkit-animation-delay: 0.58s }
+    .child59 { -webkit-animation-delay: 0.59s }
+    .child60 { -webkit-animation-delay: 0.6s }
+    .child61 { -webkit-animation-delay: 0.61s }
+    .child62 { -webkit-animation-delay: 0.62s }
+    .child63 { -webkit-animation-delay: 0.63s }
+    .child64 { -webkit-animation-delay: 0.64s }
+    .child65 { -webkit-animation-delay: 0.65s }
+    .child66 { -webkit-animation-delay: 0.66s }
+    .child67 { -webkit-animation-delay: 0.67s }
+    .child68 { -webkit-animation-delay: 0.68s }
+    .child69 { -webkit-animation-delay: 0.6900000000000001s }
+    .child70 { -webkit-animation-delay: 0.7000000000000001s }
+    .child71 { -webkit-animation-delay: 0.71s }
+    .child72 { -webkit-animation-delay: 0.72s }
+    .child73 { -webkit-animation-delay: 0.73s }
+    .child74 { -webkit-animation-delay: 0.74s }
+    .child75 { -webkit-animation-delay: 0.75s }
+    .child76 { -webkit-animation-delay: 0.76s }
+    .child77 { -webkit-animation-delay: 0.77s }
+    .child78 { -webkit-animation-delay: 0.78s }
+    .child79 { -webkit-animation-delay: 0.79s }
+    .child80 { -webkit-animation-delay: 0.8s }
+    .child81 { -webkit-animation-delay: 0.81s }
+    .child82 { -webkit-animation-delay: 0.8200000000000001s }
+    .child83 { -webkit-animation-delay: 0.8300000000000001s }
+    .child84 { -webkit-animation-delay: 0.84s }
+    .child85 { -webkit-animation-delay: 0.85s }
+    .child86 { -webkit-animation-delay: 0.86s }
+    .child87 { -webkit-animation-delay: 0.87s }
+    .child88 { -webkit-animation-delay: 0.88s }
+    .child89 { -webkit-animation-delay: 0.89s }
+    .child90 { -webkit-animation-delay: 0.9s }
+    .child91 { -webkit-animation-delay: 0.91s }
+    .child92 { -webkit-animation-delay: 0.92s }
+    .child93 { -webkit-animation-delay: 0.93s }
+    .child94 { -webkit-animation-delay: 0.9400000000000001s }
+    .child95 { -webkit-animation-delay: 0.9500000000000001s }
+    .child96 { -webkit-animation-delay: 0.96s }
+    .child97 { -webkit-animation-delay: 0.97s }
+    .child98 { -webkit-animation-delay: 0.98s }
+    .child99 { -webkit-animation-delay: 0.99s }
+    .child100 { -webkit-animation-delay: 1s }
+    .child101 { -webkit-animation-delay: 1.01s }
+    .child102 { -webkit-animation-delay: 1.02s }
+    .child103 { -webkit-animation-delay: 1.03s }
+    .child104 { -webkit-animation-delay: 1.04s }
+    .child105 { -webkit-animation-delay: 1.05s }
+    .child106 { -webkit-animation-delay: 1.06s }
+    .child107 { -webkit-animation-delay: 1.07s }
+    .child108 { -webkit-animation-delay: 1.08s }
+    .child109 { -webkit-animation-delay: 1.09s }
+    .child110 { -webkit-animation-delay: 1.1s }
+    .child111 { -webkit-animation-delay: 1.11s }
+    .child112 { -webkit-animation-delay: 1.12s }
+    .child113 { -webkit-animation-delay: 1.1300000000000001s }
+    .child114 { -webkit-animation-delay: 1.1400000000000001s }
+    .child115 { -webkit-animation-delay: 1.1500000000000001s }
+    .child116 { -webkit-animation-delay: 1.16s }
+    .child117 { -webkit-animation-delay: 1.17s }
+    .child118 { -webkit-animation-delay: 1.18s }
+    .child119 { -webkit-animation-delay: 1.19s }
+    .child120 { -webkit-animation-delay: 1.2s }
+    .child121 { -webkit-animation-delay: 1.21s }
+    .child122 { -webkit-animation-delay: 1.22s }
+    .child123 { -webkit-animation-delay: 1.23s }
+    .child124 { -webkit-animation-delay: 1.24s }
+    .child125 { -webkit-animation-delay: 1.25s }
+    .child126 { -webkit-animation-delay: 1.26s }
+    .child127 { -webkit-animation-delay: 1.27s }
+    .child128 { -webkit-animation-delay: 1.28s }
+    .child129 { -webkit-animation-delay: 1.29s }
+    .child130 { -webkit-animation-delay: 1.3s }
+    .child131 { -webkit-animation-delay: 1.31s }
+    .child132 { -webkit-animation-delay: 1.32s }
+    .child133 { -webkit-animation-delay: 1.33s }
+    .child134 { -webkit-animation-delay: 1.34s }
+    .child135 { -webkit-animation-delay: 1.35s }
+    .child136 { -webkit-animation-delay: 1.36s }
+    .child137 { -webkit-animation-delay: 1.37s }
+    .child138 { -webkit-animation-delay: 1.3800000000000001s }
+    .child139 { -webkit-animation-delay: 1.3900000000000001s }
+    .child140 { -webkit-animation-delay: 1.4000000000000001s }
+    .child141 { -webkit-animation-delay: 1.41s }
+    .child142 { -webkit-animation-delay: 1.42s }
+    .child143 { -webkit-animation-delay: 1.43s }
+    .child144 { -webkit-animation-delay: 1.44s }
+    .child145 { -webkit-animation-delay: 1.45s }
+    .child146 { -webkit-animation-delay: 1.46s }
+    .child147 { -webkit-animation-delay: 1.47s }
+    .child148 { -webkit-animation-delay: 1.48s }
+    .child149 { -webkit-animation-delay: 1.49s }
+    .child150 { -webkit-animation-delay: 1.5s }
+    .child151 { -webkit-animation-delay: 1.51s }
+    .child152 { -webkit-animation-delay: 1.52s }
+    .child153 { -webkit-animation-delay: 1.53s }
+    .child154 { -webkit-animation-delay: 1.54s }
+    .child155 { -webkit-animation-delay: 1.55s }
+    .child156 { -webkit-animation-delay: 1.56s }
+    .child157 { -webkit-animation-delay: 1.57s }
+    .child158 { -webkit-animation-delay: 1.58s }
+    .child159 { -webkit-animation-delay: 1.59s }
+    .child160 { -webkit-animation-delay: 1.6s }
+    .child161 { -webkit-animation-delay: 1.61s }
+    .child162 { -webkit-animation-delay: 1.62s }
+    .child163 { -webkit-animation-delay: 1.6300000000000001s }
+    .child164 { -webkit-animation-delay: 1.6400000000000001s }
+    .child165 { -webkit-animation-delay: 1.6500000000000001s }
+    .child166 { -webkit-animation-delay: 1.6600000000000001s }
+    .child167 { -webkit-animation-delay: 1.67s }
+    .child168 { -webkit-animation-delay: 1.68s }
+    .child169 { -webkit-animation-delay: 1.69s }
+    .child170 { -webkit-animation-delay: 1.7s }
+    .child171 { -webkit-animation-delay: 1.71s }
+    .child172 { -webkit-animation-delay: 1.72s }
+    .child173 { -webkit-animation-delay: 1.73s }
+    .child174 { -webkit-animation-delay: 1.74s }
+    .child175 { -webkit-animation-delay: 1.75s }
+    .child176 { -webkit-animation-delay: 1.76s }
+    .child177 { -webkit-animation-delay: 1.77s }
+    .child178 { -webkit-animation-delay: 1.78s }
+    .child179 { -webkit-animation-delay: 1.79s }
+    .child180 { -webkit-animation-delay: 1.8s }
+    .child181 { -webkit-animation-delay: 1.81s }
+    .child182 { -webkit-animation-delay: 1.82s }
+    .child183 { -webkit-animation-delay: 1.83s }
+    .child184 { -webkit-animation-delay: 1.84s }
+    .child185 { -webkit-animation-delay: 1.85s }
+    .child186 { -webkit-animation-delay: 1.86s }
+    .child187 { -webkit-animation-delay: 1.87s }
+    .child188 { -webkit-animation-delay: 1.8800000000000001s }
+    .child189 { -webkit-animation-delay: 1.8900000000000001s }
+    .child190 { -webkit-animation-delay: 1.9000000000000001s }
+    .child191 { -webkit-animation-delay: 1.9100000000000001s }
+    .child192 { -webkit-animation-delay: 1.92s }
+    .child193 { -webkit-animation-delay: 1.93s }
+    .child194 { -webkit-animation-delay: 1.94s }
+    .child195 { -webkit-animation-delay: 1.95s }
+    .child196 { -webkit-animation-delay: 1.96s }
+    .child197 { -webkit-animation-delay: 1.97s }
+    .child198 { -webkit-animation-delay: 1.98s }
+    .child199 { -webkit-animation-delay: 1.99s }
+    .child200 { -webkit-animation-delay: 2s }
+    .child201 { -webkit-animation-delay: 2.0100000000000002s }
+    .child202 { -webkit-animation-delay: 2.02s }
+    .child203 { -webkit-animation-delay: 2.0300000000000002s }
+    .child204 { -webkit-animation-delay: 2.04s }
+    .child205 { -webkit-animation-delay: 2.05s }
+    .child206 { -webkit-animation-delay: 2.06s }
+    .child207 { -webkit-animation-delay: 2.07s }
+    .child208 { -webkit-animation-delay: 2.08s }
+    .child209 { -webkit-animation-delay: 2.09s }
+    .child210 { -webkit-animation-delay: 2.1s }
+
+
+
+
+</style>
+
+<div id="transition" style="width: 650px; height: 1200px; ">
+                              <div class="parent child0">
+                                  <div>
+                                  </div>
+                              </div>
+                              <div class="parent child1">
+                                  <div>
+                                  </div>
+                              </div>
+                              <div class="parent child2">
+                                      <div>
+                                      </div>
+                                  </div>
+                                  <div class="parent child3">
+                                      <div>
+                                      </div>
+                                  </div>
+                                  <div class="parent child4">
+                                      <div>
+                                      </div>
+                                  </div>
+                                  <div class="parent child5">
+                                  <div>
+                                  </div>
+                              </div>
+                              <div class="parent child6">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child7">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child8">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child9">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child10">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child11">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child12">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child13">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child14">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child15">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child16">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child17">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child18">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child19">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child20">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child21">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child22">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child23">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child24">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child25">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child26">
+                                         <div>
+                                         </div>
+                                     </div>
+                                     <div class="parent child27">
+                                         <div>
+                                         </div>
+                                     </div>
+                                     <div class="parent child28">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child29">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child30">
+                                         <div>
+                                         </div>
+                                     </div>
+                                     <div class="parent child31">
+                                         <div>
+                                         </div>
+                                     </div>
+                                     <div class="parent child32">
+                                         <div>
+                                         </div>
+                                     </div>
+                                     <div class="parent child33">
+                                         <div>
+                                         </div>
+                                     </div>
+                                     <div class="parent child34">
+                                         <div>
+                                         </div>
+                                     </div>
+                                     <div class="parent child35">
+                                         <div>
+                                         </div>
+                                     </div>
+                                     <div class="parent child36">
+                                     <div>
+                                     </div>
+                                 </div>
+                                 <div class="parent child37">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child38">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child39">
+                                  <div>
+                                  </div>
+                              </div>
+                              <div class="parent child40">
+                                      <div>
+                                      </div>
+                                  </div>
+                                  <div class="parent child41">
+                                      <div>
+                                      </div>
+                                  </div>
+                                  <div class="parent child42">
+                                      <div>
+                                      </div>
+                                  </div>
+                                  <div class="parent child43">
+                                  <div>
+                                  </div>
+                              </div>
+                              <div class="parent child44">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child45">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child46">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child47">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child48">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child49">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child50">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child51">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child52">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child53">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child54">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child55">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child56">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child57">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child58">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child59">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child60">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child61">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child62">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child63">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child64">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child65">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child66">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child67">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child68">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child69">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child70">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child71">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child72">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child73">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child74">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child75">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child76">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child77">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child78">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child79">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child80">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child81">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child82">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child83">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child84">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child85">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child86">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child87">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child88">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child89">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child90">
+                                           <div>
+                                           </div>
+                                       </div>
+                                       <div class="parent child91">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child92">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child93">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child94">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child95">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child96">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child97">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child98">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child99">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child100">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child101">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child102">
+                                  <div>
+                                  </div>
+                              </div>
+                              <div class="parent child103">
+                                  <div>
+                                  </div>
+                              </div>
+                              <div class="parent child104">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child105">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child106">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child107">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child108">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child109">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child110">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child111">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child112">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child113">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child114">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child115">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child116">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child117">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child118">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child119">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child120">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child121">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child122">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child123">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child124">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child125">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child126">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child127">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child128">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child129">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child130">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child131">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child132">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child133">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child134">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child135">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child136">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child137">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child138">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child139">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child140">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child141">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child142">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child143">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child144">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child145">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child146">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child147">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child148">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child149">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child150">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child151">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child152">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child153">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child154">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child155">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child156">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child157">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child158">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child159">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child160">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="parent child161">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child162">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child163">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child164">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child165">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child166">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child167">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="parent child168">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child169">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child170">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child171">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child172">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child173">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child174">
+                                            <div>
+                                            </div>
+                                        </div>
+                                        <div class="parent child175">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child176">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child177">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child178">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child179">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child180">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child181">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child182">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child183">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child184">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child185">
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="parent child186">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child187">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child188">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child189">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child190">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child191">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child192">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child193">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child194">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child195">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child196">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child197">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child198">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child199">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child200">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child201">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child202">
+                                 <div>
+                                 </div>
+                             </div>
+                             <div class="parent child203">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child204">
+                              <div>
+                              </div>
+                          </div>
+                          <div class="parent child205">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child206">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child207">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child208">
+                                       <div>
+                                       </div>
+                                   </div>
+                                   <div class="parent child209">
+                              <div>
+                              </div>
+                          </div>
+</div></div>
+<footer>
+    <div class="container">
+        <div class="profile">
+            <h3>Niklas von Hertzen<span>hertzen.com</span></h3>
+            <a href="https://twitter.com/niklasvh"><img src="/base/img/twitter.png" alt="Twitter" /></a>
+            <a href="https://plus.google.com/115030581977322198102/posts"><img src="/base/img/google-plus-black.png" alt="Google+" /></a>
+           <a href="https://facebook.com/vonhertzen"><img src="/base/img/facebook.png" alt="Facebook" /></a>
+           <a href="https://github.com/niklasvh"><img src="/base/img/github.png" alt="Github" /></a>
+           <a href="http://fi.linkedin.com/pub/niklas-von-hertzen/16/522/5ab"><img src="/base/img/linkedin.png" alt="LinkedIn" /></a>
+        </div>
+    </div>
+
+</footer>
+
+<script>
+
+    // google analytics         
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-188600-10']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();   
+    // twitter         
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // google plus
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+
+</body>
+</html>

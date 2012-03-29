@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="html2canvas" basedir="." default="build">
+    <property name="src.dir" location="src"/>
+    <property name="js.dir" location="js"/>
+    <property name="lib.dir" location="../lib"/>
+ 
+
+
+    <target name="css-regions">
+        <property name="TITLE" value="CSS Regions"/>
+        <property name="URL" value="http://experiments.hertzen.com/css-regions/"/>
+        <property name="proj.dir" value="css-regions" />
+        
+        <loadfile property="prepend" srcFile="${proj.dir}/_html/prepend.html"/>
+        <loadfile property="append" srcFile="${proj.dir}/_html/append.html"/>
+        
+        <antcall target="preload" inheritRefs="true" />
+        <replaceregexp match="^(.*)$" replace="${prepend}\1${append}" flags="s">
+            <fileset dir="${proj.dir}" includes="*.html">
+                 <exclude name="index.html"/>
+                </fileset>
+        </replaceregexp>
+        
+        <antcall target="postload" inheritRefs="true" />
+        
+
+
+        
+    </target>
+  
+    <target name="preload">
+        <copy todir="${proj.dir}" overwrite="true">
+            <fileset dir="${proj.dir}/_html" includes="_*.html">
+                <exclude name="_nav.html"/>
+            </fileset>
+            <globmapper from="_*.html" to="*.html"/>
+            <filterset>
+                <filter token="TITLE" value="{$TITLE}"/>
+            </filterset>
+        </copy>
+    </target>
+    
+    <target name="postload">
+        <echo message="Building ${TITLE}"/>
+        
+        <loadfile property="header" srcFile="base/_html/_header.html"/>
+        <loadfile property="footer" srcFile="base/_html/_footer.html"/>  
+        
+
+        
+        <replaceregexp match="^(.*)$" replace="${header}\1${footer}" flags="s">
+            <fileset dir="${proj.dir}" includes="*.html"/>
+        </replaceregexp>
+    
+        <loadfile property="NAV" srcFile="${proj.dir}/_html/_nav.html"/>
+    
+
+        <!--
+        <replaceregexp match="li(.*)" replace="li\1${ant.refid:filenameref}" flags="m">
+            <fileset dir="${proj.dir}" includes="*.html" id="filenameref" />
+        </replaceregexp>-->
+  
+        <replace dir="${proj.dir}" token="@TITLE@" value="${TITLE}"> 
+            <include name="*.html"/> 
+        </replace>
+        <replace dir="${proj.dir}" token="@URL@" value="${URL}"> 
+            <include name="*.html"/> 
+        </replace>
+        <replace dir="${proj.dir}" token="@NAV@" value="${NAV}"> 
+            <include name="*.html"/> 
+        </replace>        
+        
+    
+    </target>
+  
+    
+
+
+    
+
+
+    <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
+           classpath="${lib.dir}/compiler.jar" onerror="report"/>
+
+
+</project>
