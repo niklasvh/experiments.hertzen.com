@@ -5,6 +5,22 @@
     <property name="lib.dir" location="../lib"/>
  
 
+    <target name="webgl-gta">
+        <property name="TITLE" value="WebGL GTA"/>
+        <property name="URL" value="http://experiments.hertzen.com/webgl-gta/"/>
+        <property name="proj.dir" value="webgl-gta" />
+        
+        <antcall target="preload" inheritRefs="true" />
+        <replaceregexp match="^(.*)$" replace="${prepend}\1${append}" flags="s">
+            <fileset dir="${proj.dir}" includes="*.html">
+                 <exclude name="index.html"/>
+                </fileset>
+        </replaceregexp>
+        
+        <antcall target="postload" inheritRefs="true" />
+   
+    </target>
+
 
     <target name="css-regions">
         <property name="TITLE" value="CSS Regions"/>

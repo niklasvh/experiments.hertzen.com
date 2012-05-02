@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WebGL GTA</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Niklas von Hertzen">
+
+        <!-- Le styles -->
+        <link href="/base/css/bootstrap.css" rel="stylesheet">
+        <link href="/base/css/style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons 
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        -->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://experiments.hertzen.com/webgl-gta/">WebGL GTA</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+    <li><a href="index.html">Introduction</a></li>
+    <li><a href="http://niklasvh.github.com/WebGL-GTA/">Play</a></li>
+    <li><a href="https://github.com/niklasvh/WebGL-GTA">Source code</a></li>
+</ul>
+                    </div><!--/.nav-collapse -->
+
+                    <p class="navbar-text pull-right" style="padding-top:5px;margin-bottom:-5px;">
+
+
+
+                        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://experiments.hertzen.com/webgl-gta/"  data-count="horizontal" data-via="niklasvh">Tweet</a>
+                      
+                        <!-- Place this tag where you want the +1 button to render -->
+                        <g:plusone size="medium" annotation="inline" href="http://experiments.hertzen.com/webgl-gta/" width="250"></g:plusone>
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+   
+<div class="container">
+    <h1>WebGL GTA</h1>
+    <p>
+       This experiment parses the game files (in their original format) and builds the maps and some of the game objects from the game through WebGL. Some very basic game mechanics and physics are implemented, but there isn't really anything else than pedestrian movement possible in this version.
+    </p>
+    <p>
+        The game files used are from the original GTA game's demo from 1997, freely available for download <a href="http://www.rockstargames.com/gta/demos/gta24.zip">here</a>. The full version is also available for free from <a href="http://www.rockstargames.com/classics/?id=1">Rockstar Games</a> or for purchase at <a href="http://store.steampowered.com/app/12170/">Steam store</a>.
+    </p>
+
+    <h2>Browser support & Issues</h2>
+    <p>Currently only works on Google Chrome and requires a half decent graphics card. There are a number of graphical glitches present, such as problems with palette transparancy and some slopes applied with wrong angle. This implementation parses the game files as they were used in the original games, and as such they are far from an optimal format used in this experiment, and especially the sprites and color palettes require far more computing that would be necessary with a more optimal format.</p>
+    
+    <h2>Future plans</h2>
+    <p>I created this experiment just for the purpose of testing some aspects of WebGL and to see how well larger static environments perform and currently have no plans of continuing developing this any further in the near future. It currently parses most files used by the game (including maps, sprites, game objects, spawn points, missions, etc. ) but only uses a small portion of that data in its current implementation.</p>
+    
+    <a href="http://niklasvh.github.com/WebGL-GTA/">Try it</a>
+</div>
+<footer>
+    <div class="container">
+        <div class="profile">
+            <h3>Niklas von Hertzen<span>hertzen.com</span></h3>
+            <a href="https://twitter.com/niklasvh"><img src="/base/img/twitter.png" alt="Twitter" /></a>
+            <a href="https://plus.google.com/115030581977322198102/posts"><img src="/base/img/google-plus-black.png" alt="Google+" /></a>
+           <a href="https://facebook.com/vonhertzen"><img src="/base/img/facebook.png" alt="Facebook" /></a>
+           <a href="https://github.com/niklasvh"><img src="/base/img/github.png" alt="Github" /></a>
+           <a href="http://fi.linkedin.com/pub/niklas-von-hertzen/16/522/5ab"><img src="/base/img/linkedin.png" alt="LinkedIn" /></a>
+        </div>
+    </div>
+
+</footer>
+
+<script>
+
+    // google analytics         
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-188600-10']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();   
+    // twitter         
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // google plus
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+
+</body>
+</html>
