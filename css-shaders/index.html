@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>CSS Shaders with WebGL</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Niklas von Hertzen">
+
+        <!-- Le styles -->
+        <link href="/base/css/bootstrap.css" rel="stylesheet">
+        <link href="/base/css/style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons 
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        -->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://experiments.hertzen.com/css-shaders/">CSS Shaders with WebGL</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+    <li><a href="index.html">Introduction</a></li>
+    <li><a href="https://github.com/niklasvh/WebGL-CSS-Shaders">Source code</a></li>
+    <li><a href="https://plus.google.com/115030581977322198102/posts/Zt3FrXQHHDv">Security Issues</a></li>
+</ul>
+                    </div><!--/.nav-collapse -->
+
+                    <p class="navbar-text pull-right" style="padding-top:5px;margin-bottom:-5px;">
+
+
+
+                        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://experiments.hertzen.com/css-shaders/"  data-count="horizontal" data-via="niklasvh">Tweet</a>
+                      
+                        <!-- Place this tag where you want the +1 button to render -->
+                        <g:plusone size="medium" annotation="inline" href="http://experiments.hertzen.com/css-shaders/" width="250"></g:plusone>
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+   
+<div class="container">
+    <h1>CSS Shaders</h1>
+    
+    <h2>Introduction</h2>
+    <p>
+        One of the more exciting features for the web which I've been looking forward to some time now are <a href="https://dvcs.w3.org/hg/FXTF/raw-file/tip/custom/index.html">CSS shaders</a>. You might remember when <a href="http://www.webkit.org/blog/386/3d-transforms/">3D transforms</a> were new and hot, CSS shaders will bring content transformations to a whole new level.
+        The ability to perform any sort of transformations up-to single pixel precision allows developers to create and <a href="http://www.adobe.com/devnet/html5/articles/css-shaders.html">present content in ways that have not been possible before</a>.
+</p>  
+<h2>Differences between WebGL and CSS shaders</h2>
+<p>    
+    If you are familiar with shaders from WebGL, CSS shaders are almost identical with a few differences. As described by <a href="http://www.adobe.com/devnet/html5/articles/css-shaders.edu.html#articlecontentAdobe_numberedheader_4">Vincent Hardy</a>:
+    </p>
+<blockquote>"WebGL operates within the bounds of the canvas for which it provides a context. By contrast, CSS shaders provide a way to apply arbitrary shaders to arbitrary Web content". </blockquote>
+<p>
+    This very much applies to my implementation of <a href="https://github.com/niklasvh/WebGL-CSS-Shaders">CSS shaders through WebGL</a>, but there are some more differences to WebGL and CSS shaders than that.
+</p>
+
+<p>
+The biggest and most notable difference between the CSS shader specification and my implementation is that my implementation does not actually perform the rendering through CSS, but through JavaScript/WebGL instead. To accomplish this, the script <a href="http://html2canvas.hertzen.com/">performs a snapshot</a> of the content in <b>its current state</b> which it sends to the WebGL program as the texture. 
+In short, this means that any DOM changes that occur do not reflect on the shaders unless the snapshot is refreshed. 
+This obviously is a major downside for my implementation, but when taken into account, it can still be used in many powerful ways. It is also noteworty, that at least with the computers I've tested with, my implementation has noticably higher framerate than the same application running on the native CSS shaders, which I'd presume is due to my implementation using a static snapshop where as the CSS shaders using the actual web content. Hopefully the performance issues are addressed, as even with the <a href="http://adobe.github.com/web-platform/samples/css-shaders/">sample demos</a> from Adobe, there is still noticable framerate dropping.
+</p>
+
+<h3>Security issues</h3>
+
+<p>
+    The other major difference is the fact that with the current proposal and implementation of CSS shaders, the fragment shader does not have access to the texture color at all. Instead, the modifications to the colors are to be done through blending using <code>css_ColorMatrix</code> and <code>css_BlendColor</code>. With my implementation, those two variables can be used, but the fragment shaders can also read and write the color of the texture directly as it has full access to the texture. 
+    The reason CSS shaders do not have access to the texture color is due to security issues and I gave my views on the current approach <a href="https://plus.google.com/115030581977322198102/posts/Zt3FrXQHHDv">here</a>. 
+    As my implementation does have access to read the texture, it shouldn't come as a surprise that my implementation is not able to read cross-origin content (without proxy), distinguish <code>:visited</code> links, display OS-specific forms, and a whole lot of CSS properties that <a href="https://github.com/niklasvh/html2canvas">html2canvas</a> still doesn't support.
+</p>
+
+<p>
+    As my implementation runs on WebGL, it can run on all browsers that support WebGL. As such, the samples should work with current stable versions of both Firefox and Chrome (sorry Opera, feel free to add prefixes etc.). My implementation also allows you to define shader attributes through JavaScript, so you can for example access the <a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/mouse/">mouse coordinates within the shaders</a>.
+</p>
+
+<h2>Samples</h2>
+<p>
+    Most of these samples are by <a href="http://adobe.github.com/web-platform/samples/css-shaders/">Adobe</a>, slightly modified to include my CSS shader implementation to them.
+</p>
+<h3>Simple</h3>
+<ul>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/simple-fragment/">Fragment Shader</a></li>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/simple-vertex/">Vertex Shader</a></li>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/simple-vertex-params/">Vertex Shader with parameters from CSS</a></li>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/simple-vertex-fragment/">Vertex and fragment shaders</a></li>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/simple-vertex-transition/">Vertex shader with CSS transition</a></li>
+     
+</ul>
+        
+<h3>Advanced</h3>
+<ul>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/varyings/">Passing values between vertex and fragment shader</a></li>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/detached_tiles/">Vertex shader - using detached tiles</a></li>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/transforming_tiles/">Vertex shader - tile dependent transforms</a></li>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/curtain/">Using more filters on the same page</a></li>
+     <li><a href="http://niklasvh.github.com/WebGL-CSS-Shaders/samples/mouse/">Mouse coordinates within shader</a></li>
+     
+</ul>   
+
+    
+
+<h2>Conclusion</h2>
+<p>
+    Personally, I think CSS shaders are the biggest thing that CSS has ever had coming for it, so I certainly hope the support for it won't end with webkit browsers. However, as Microsoft currently has no intentions to implement WebGL into Internet Explorer, I certainly don't see them implementing CSS shaders (which really has more security issues than just WebGL). I'd like to also note that this implementation is just a prototype experiment and as such still consists of many bugs and I wouldn't recommend using it in any production environment.
+    If you would like to see how the native CSS shaders currently work in Chrome, you can either download the <a href="https://github.com/adobe/webkit/tree/may2012-f2f-prototype">webkit prototype by Adobe</a> or enable them with the <a href="http://src.chromium.org/viewvc/chrome?view=rev&revision=129598">command flag</a> <code>--enable-css-shaders</code>.
+</p>
+
+<h3>Credits</h3>
+<p>The script uses the following libraries:</p>
+<ul>
+    <li><a href="http://html2canvas.hertzen.com/">html2canvas</a></li>
+    <li><a href="https://github.com/sole/tween.js/">Tween.js</a></li>
+    <li><a href="https://github.com/toji/gl-matrix">gl-matrix.js</a></li>
+</ul>
+
+</div>
+<footer>
+    <div class="container">
+        <div class="profile">
+            <h3>Niklas von Hertzen<span>hertzen.com</span></h3>
+            <a href="https://twitter.com/niklasvh"><img src="/base/img/twitter.png" alt="Twitter" /></a>
+            <a href="https://plus.google.com/115030581977322198102/posts"><img src="/base/img/google-plus-black.png" alt="Google+" /></a>
+           <a href="https://facebook.com/vonhertzen"><img src="/base/img/facebook.png" alt="Facebook" /></a>
+           <a href="https://github.com/niklasvh"><img src="/base/img/github.png" alt="Github" /></a>
+           <a href="http://fi.linkedin.com/pub/niklas-von-hertzen/16/522/5ab"><img src="/base/img/linkedin.png" alt="LinkedIn" /></a>
+        </div>
+    </div>
+
+</footer>
+
+<script>
+
+    // google analytics         
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-188600-10']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();   
+    // twitter         
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // google plus
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+
+</body>
+</html>
