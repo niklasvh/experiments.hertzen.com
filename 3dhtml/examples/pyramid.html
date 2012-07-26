@@ -1,0 +1,56 @@
+<!--
+* @author Niklas von Hertzen <niklas at hertzen.com>
+* @created 3.7.2011 
+* @website http://hertzen.com
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pyramid Example</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="#" type="text/css" rel="stylesheet"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" src="../three.js"></script>
+        <script type="text/javascript" src="../html2webgl.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var el = $('#javascriptContent').empty();
+                for (var i=0;i<=20;i++){
+                    
+                    el = $('<div />').appendTo(el);
+                }
+                el.text('Top of the tree!');
+                
+                $('body').html2webgl();
+            });
+        </script>
+        <style>
+            div{
+                padding:20px;
+                margin:0 auto;
+                border:5px solid black;
+            }
+            
+            h1{
+                border-bottom:2px solid white;
+            }
+            
+            h2{
+                background: #efefef;
+                padding:10px;
+            }
+            
+             div{
+                
+                background: #9af208;
+                border-color: #459127;
+            }
+        </style>
+    </head>
+    <body>
+   
+                         <div id="javascriptContent">Insert some elements created with JavaScript here.</div>
+           
+    </body>
+</html>

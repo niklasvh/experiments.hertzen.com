@@ -1,0 +1,25 @@
+<div class="container">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
+
+
+
+
+
+    <h1>Modifying font files with JavaScript</h1> 
+
+    <p>
+        This script loads a <a href="http://www.microsoft.com/typography/otspec/default.htm" target="_blank">TrueType/OpenType</a> font file through AJAX and parses all the contents from binary to human readable values and maps them in objects for better organization. Once the whole file has been parsed, the values in the objects can be freely modified to alter anything in the font file. 
+        Once all the modifications are done, the script compiles the font back into an <a href="http://www.khronos.org/registry/typedarray/specs/latest/" target="_blank">ArrayBuffer</a>, from which it can be either be outputted as <a href="http://en.wikipedia.org/wiki/Base64" target="_blank">base64</a> encoded or as a <a href="http://dev.w3.org/2006/webapi/FileAPI/#url">blob URI</a>, which can be embedded for example in CSS.
+    </p>
+
+    <p>Currently there are no helper methods available yet to for example visualize the glyph instructions, which compose a single character in a font, which would assist in creating a WYSIWYG editor for font glyphs. Currently working on implementing helper functions to add, move and remove glyphs.</p>
+
+    <p>Font files consist of a number of required tables and some optional tables. For some examples of what kind of data is within the tables, have a look at the dump tables for <a href="ConsolaMono.txt">ConsolaMono</a> (0.25 mb), as well as its <a href="other.txt">cmap & glyf</a> (7.4 mb) tables.</p>
+
+    <p><b>The script currently requires <a href="http://www.khronos.org/registry/typedarray/specs/latest/#8">DataView</a> among other things (<a href="http://dev.w3.org/2009/dap/file-system/file-writer.html#idl-def-BlobBuilder">BlobBuilder</a>, <a href="http://dev.w3.org/2006/webapi/FileAPI/#url">blob URL's</a>, <a href="http://www.khronos.org/registry/typedarray/specs/latest/" target="_blank">ArrayBuffers</a>), meaning it currently <span style="text-decoration:underline;">only supports newer versions of Chrome</span>.</b></p>
+
+
+    <p style="font-size:16px;text-align:center;">
+        <img src="sample.jpg" alt="Example"  /><br />
+        <a href="glyph.html">View example font parsing/building</a> (Chrome only)</p>
+</div> 

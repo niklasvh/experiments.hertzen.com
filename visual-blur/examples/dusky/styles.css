@@ -1,0 +1,95 @@
+body{margin:0px; padding:0px; background:#00ac69}
+#headWrap{width:100%; height:315px; margin:0px; padding:0px; float:left; background:url(images/headBg.jpg) repeat-x}
+#headpanel{width:934px; height:315px; margin:0 auto; padding:0px}
+#logo{width:235px; height:53px; margin:31px 0 0 0; padding:0px; float:left; background:url(images/logo.jpg) no-repeat}
+#logo h1{font-family:Tahoma; font-size:46px; color:#FFFFFF; font-weight:bold; line-height:50px; margin:0px; padding:0px;}
+#quots{width:290px; height:73px; margin:61px 0 0 0; padding:0 30px 0; float:right; text-indent:-9999px; background:url(images/quots.jpg) no-repeat}
+#menu{width:934px; height:28px; margin:153px 0 0 0; padding:0px; float:left}
+#menu ul{width:934px; height:28px; margin:0px; padding:0px; float:left; display:block}
+#menu ul li{width:auto; height:28px; margin:0px; padding:0px; float:left; display:block}
+#menu ul li .gap{width:1px; height:28px; margin:0px; padding:0 11px 0 11px; float:left; background:url(images/menuspace.jpg) no-repeat center top}
+#menu ul li a{width:auto; height:28px; margin:0px; padding:0px; float:left; font-family:Arial; font-size:12px; color:#e5df85; line-height:18px; font-weight:bold; text-decoration:none}
+#menu ul li a:hover{color:#FFFFFF; background:url(images/menuHover.jpg) no-repeat center bottom}
+#contentWrap{width:100%; margin:0px; padding:0px; float:left; background:#fffcd5 url(images/contentBg.jpg) repeat-x}
+#contentPanel{width:934px; margin:0 auto; padding:33px 0 0 0}
+#leftPanel{width:259px; margin:0px; padding:0 0 34px 0; float:left; border-right:#c6d09d dashed 1px}
+#leftPanel .toplinks{width:259px; margin:0px; padding:0px; float:left}
+#leftPanel .toplinks h2{width:224px; margin:0px; padding:0px; float:left; font-family:Georgia; font-size:20px; color:#000000; line-height:24px; font-weight:normal}
+#leftPanel .toplinks h3{width:224px; margin:5px 0 0 0; padding:0px; float:left; font-family:Arial; font-size:12px; color:#005b7f; line-height:16px; font-weight:bold}
+#leftPanel .toplinks p{width:224px; margin:10px 0 0 0; padding:0px; float:left; font-family:Arial; font-size:12px; color:#252525; line-height:16px}
+#leftPanel .toplinks ul{width:224px; margin:8px 0 0 0; padding:0px; float:left; display:block}
+#leftPanel .toplinks ul li{width:224px; margin:0px; padding:0px; float:left; display:block}
+#leftPanel .toplinks ul li a{width:205px; height:19px; margin:0px; padding:0 0 0 19px; float:left; font-family:Arial; font-size:12px; color:#363636; line-height:16px; text-decoration:none; border-bottom:#c6d09d solid 1px; background:url(images/lisstyle.jpg) no-repeat 0 -18px}
+#leftPanel .toplinks ul li a:hover{color:#c46706; background:#FFFFFF url(images/lisstyle.jpg) no-repeat}
+#leftPanel .toplinks ul li a.bottom{width:205px; height:19px; margin:0px; padding:0 0 0 19px; float:left; font-family:Arial; font-size:12px; color:#363636; line-height:16px; text-decoration:none; border-bottom:0px; background:url(images/lisstyle.jpg) no-repeat 0 -18px}
+#leftPanel .toplinks ul li a.bottom:hover{color:#c46706; background:#FFFFFF url(images/lisstyle.jpg) no-repeat}
+#loginPanel{width:224px; margin:31px 0 0 0; padding:0px; float:left}
+#loginPanel h2{width:224px; margin:0px; padding:0px; float:left; font-family:Georgia; font-size:20px; color:#000000; line-height:24px; font-weight:normal}
+#loginPanel h3{width:224px; margin:5px 0 0 0; padding:0px; float:left; font-family:Arial; font-size:12px; color:#005b7f; line-height:16px; font-weight:bold}
+#loginPanel input{width:98px; height:17px; margin:11px 0 0 0; padding:2px 0 0 5px; float:left; font-family:Arial; font-size:10px; color:#363636; border:0px; background:#f3efc0}
+#loginPanel .blank{width:11px; height:10px; margin:0px; padding:0px; float:left}
+#loginPanel p{width:218px; margin:9px 0 0 0; padding:0 0 0 6px; float:left; font-family:Arial; font-size:11px; color:#252525; font-weight:bold}
+#loginPanel p a{color:#d25930; text-decoration:none}
+#loginPanel .login{width:55px; height:16px; margin:5px 0 0 0; margin-left:5px; padding:0px; float:left; font-family:Arial; font-size:10px; color:#000000; line-height:14px; text-align:center; text-decoration:none; border:#bdbcbd solid 1px; background:#FFFFFF}
+#loginPanel .login:hover{background:#CCCCCC}
+#projectsPanel{width:230px; margin:42px 0 0 0; padding:0px; float:left}
+#projectsPanel h2{width:224px; margin:0px; padding:0px; float:left; font-family:Georgia; font-size:20px; color:#000000; line-height:24px; font-weight:normal}
+#projectsPanel h3{width:224px; margin:5px 0 0 0; padding:0px; float:left; font-family:Arial; font-size:11px; color:#005b7f; line-height:16px; font-weight:bold}
+#projectsPanel .pic1{width:105px; height:83px; margin:10px 0 0 0; padding:0px; float:left; background:url(images/pic1.jpg) no-repeat}
+#projectsPanel .pic2{width:105px; height:83px; margin:10px 0 0 0; padding:0px; float:left; background:url(images/pic2.jpg) no-repeat}
+#projectsPanel .blank{width:20px; height:10px; margin:10px 0 0 0; padding:0px; float:left}
+#projectsPanel a{width:55px; height:16px; margin:7px 0 0 0; margin-left:5px; padding:0px; float:right; font-family:Arial; font-size:10px; color:#000000; line-height:14px; text-align:center; text-decoration:none; border:#bdbcbd solid 1px; background:#FFFFFF} 
+#projectsPanel a:hover{background:#CCCCCC}
+#middlePanel{width:388px; margin:0px; padding:0 0 38px 32px; float:left; border-right:#c6d09d dashed 1px}
+#middlePanel .top{width:350px; margin:0px; padding:0 0 0 3px; float:left}
+#middlePanel .top h2{width:350px; margin:0px; padding:0px; float:left; font-family:Georgia; font-size:28px; color:#000000; line-height:32px; font-weight:normal}
+#middlePanel .top h3{width:350px; margin:9px 0 0 0; padding:0px; float:left; font-family:Arial; font-size:12px; color:#005b7f; line-height:16px; font-weight:bold}
+#middlePanel .top p{width:350px; margin:16px 0 0 0; padding:0px; float:left; font-family:Arial; font-size:12px; color:#363636; line-height:16px}
+#middlePanel .top p span{color:#c46706; font-weight:bold}
+#middlePanel .top a{width:75px; height:16px; margin:10px 0 0 0; padding:0px; float:left; font-family:Arial; font-size:10px; color:#000000; line-height:14px; text-align:center; text-decoration:none; border:#bdbcbd solid 1px; background:#FFFFFF} 
+#middlePanel .top a:hover{background:#CCCCCC}
+#middlePanel .bottom{width:358px; margin:32px 0 0 0; padding:0px; float:left}
+#middlePanel .bottom h2{width:350px; margin:0px; padding:0 0 0 3px; float:left; font-family:Georgia; font-size:25px; color:#000000; line-height:29px; font-weight:normal}
+#middlePanel .bottom h3{width:350px; margin:12px 0 0 0; padding:0 0 0 3px; float:left; font-family:Arial; font-size:12px; color:#005b7f; line-height:16px; font-weight:bold}
+#middlePanel .bottom .pic3{width:358px; height:109px; margin:19px 0 0 0; padding:0px; float:left; background:url(images/pic3.jpg) no-repeat}
+#middlePanel .bottom ul{width:349px; margin:16px 0 0 0; padding:0px; float:left; display:block}
+#middlePanel .bottom ul li{width:349px; margin:0px; padding:0px; float:left; display:block}
+#middlePanel .bottom ul li a{width:334px; height:24px; margin:0px; padding:0 0 0 15px; float:left; font-family:Arial; font-size:12px; color:#1e2316; line-height:20px; text-decoration:none; border-bottom:#8bb5a2 dashed 1px; background:url(images/liststyle.jpg) no-repeat}
+#middlePanel .bottom ul li a:hover{color:#c46706; background:url(images/liststyle.jpg) no-repeat 0 -24px}
+#middlePanel .bottom ul li a.bottom{width:334px; height:24px; margin:0px; padding:0 0 0 15px; float:left; font-family:Arial; font-size:12px; color:#1e2316; line-height:20px; text-decoration:none; border-bottom:0px; background:url(images/liststyle.jpg) no-repeat}
+#middlePanel .bottom ul li a.bottom:hover{color:#c46706; background:url(images/liststyle.jpg) no-repeat 0 -24px}
+#rigtPanel{width:218px; margin:0px; padding:0 0 0 35px; float:left}
+#rigtPanel .services{width:218px; margin:0px; padding:0px; float:left}
+#rigtPanel .services h2{width:218px; margin:0px; padding:0px; float:left; font-family:Georgia; font-size:20px; color:#000000; line-height:24px; font-weight:normal}
+#rigtPanel .services ul{width:218px; margin:23px 0 0 0; padding:0px; float:left; display:block}
+#rigtPanel .services ul li{width:218px; margin:0px; padding:0 0 23px 0; float:left; display:block}
+#rigtPanel .services ul li .cal{width:45px; height:44px; margin:0px; padding:15px 0 0 0; float:left; font-family:Arial; font-size:20px; color:#3bb000; line-height:24px; text-align:center; background:url(images/calendar.jpg) no-repeat}
+#rigtPanel .services ul li .cal span{width:45px; float:left; padding:0px; font-family:Arial; font-size:11px; color:#FFFFFF; text-align:center; font-weight:bold; margin:0px}
+#rigtPanel .services ul li h2{width:164px; margin:0px; padding:0 0 0 7px; float:left; font-family:Arial; font-size:12px; color:#4f790a; line-height:16px; font-weight:bold}
+#rigtPanel .services ul li p{width:165px; margin:5px 0 0 0; padding:0 0 0 7px; float:left; font-family:Arial; font-size:12px; color:#252525; line-height:16px; text-indent:20px; background:url(images/star.jpg) no-repeat 7px 0}
+#rigtPanel .services ul li a{width:218px; margin:14px 0 0 0; padding:0px; float:left; font-family:Arial; font-size:11px; font-weight:bold; color:#c46706; line-height:15px}
+#rigtPanel .services ul li a:hover{text-decoration:none}
+#rigtPanel .services ul li .author{width:186px; height:21px; margin:14px 0 0 0; padding:0 0 0 32px; float:left; font-family:Arial; font-size:11px; color:#343434; line-height:20px; background:#fefde7 url(images/author.jpg) no-repeat 10px 0}
+#rigtPanel .services ul li .author span{font-weight:bold}
+#rigtPanel .contacts{width:200px; margin:16px 0 0 0; padding:0px; float:left}
+#rigtPanel .contacts h2{width:200px; margin:0px; padding:0 0 3px 0; float:left; font-family:Georgia; font-size:20px; color:#000000; line-height:24px; font-weight:normal}
+#rigtPanel .contacts input{width:191px; height:17px; margin:7px 0 0 0; padding:3px 0 0 9px; float:left; font-family:Arial; font-size:10px; color:#363636; border:0px; background:#f3efc0}
+#rigtPanel .contacts textarea{width:191px; height:58px; margin:7px 0 0 0; padding:3px 0 0 9px; float:left; font-family:Arial; font-size:10px; color:#363636; border:0px; background:#f3efc0}
+#rigtPanel .contacts a{width:55px; height:16px; margin:10px 0 0 0; margin-left:5px; padding:0px; float:left; font-family:Arial; font-size:10px; color:#000000; line-height:14px; text-align:center; text-decoration:none; border:#bdbcbd solid 1px; background:#FFFFFF}
+#rigtPanel .contacts a:hover{background:#cccccc}
+#footWrap{width:100%; margin:0px; padding:0 0 26px 0; float:left}
+#footPanel{width:934px; margin:0 auto; padding:0px}
+#footNav{width:934px; margin:20px 0 0 0; padding:0px; float:left}
+#footNav ul{width:558px; margin:0 auto; padding:0px; display:block}
+#footNav ul li{width:auto; margin:0px; padding:0px; float:left; display:block}
+#footNav ul li .blank{width:auto; margin:3px 0 0 0; padding:0 10px 0 10px; float:left; font-family:Arial; font-size:12px; color:#e5df85; line-height:16px; font-weight:bold}
+#footNav ul li a{font-family:Arial; font-size:12px; color:#e5df85; line-height:16px; font-weight:bold; text-decoration:none; margin:0px; padding:0px}
+#footNav ul li a:hover{text-decoration:underline}
+#footPanel p{width:934px; margin:12px 0 0 0; padding:0px; float:left; font-family:Arial; font-size:11px; color:#fffcd5; line-height:15px; font-weight:bold; text-align:center}
+#footPanel p a{color:#e5df85; text-decoration:none}
+#footPanel p a:hover{text-decoration:underline}
+#validation{width:934px; margin:10px 0 0 0; padding:0px; float:left}
+#validation ul{width:143px; margin:0 auto; padding:0px; display:block}
+#validation ul li{width:auto; margin:0px; padding:0px; float:left; display:block}
+#validation ul li .blank{width:7px; height:10px; margin:0px; padding:0px; float:left}
+#validation ul li a{width:64px; height:23px; margin:0px; padding:0 3px 0 0; float:left; font-family:Arial; font-size:11px; color:#100703; font-weight:bold; line-height:23px; text-align:center; text-decoration:none; background:url(images/validationBg.jpg) no-repeat}

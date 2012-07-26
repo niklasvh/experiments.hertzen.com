@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title>Facing</title>
+        
+
+
+        <script type="text/javascript" src="../../external/StackBlur.js"></script>
+        <script type="text/javascript" src="../../external/html2canvas.min.js"></script>
+        <script type="text/javascript" src="../../build/visual-blur.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <style>
+            #blurOverlay{
+                width:0px;
+                height:200px;
+                background: #fff;
+                position:absolute;
+
+                top:0px;
+                opacity:0;
+                text-align:center;
+                -webkit-border-radius: 22px; 
+                -moz-border-radius: 22px; 
+                border-radius: 22px; 
+                padding:20px;
+                -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
+
+
+                -webkit-box-shadow: 0px 0px 18px #000; 
+                -moz-box-shadow: 0px 0px 18px #000; 
+                box-shadow: 0px 0px 18px #000; 
+                font-family: Arial;
+                font-size: 11px;
+                font-weight: normal;
+                color: #7E7656;
+                text-decoration: none;
+
+            }
+
+            #blurOverlay h2{
+                margin-bottom:20px;
+                font-family: Arial;
+                font-size: 22px;
+                font-weight: bold;
+                color: #BB3604;
+                text-decoration: none;
+            }
+
+            #blurOverlay p{
+                margin-bottom:25px;
+            }
+            .closeButton{
+                background-color: #C12F00;
+
+                -webkit-border-radius: 8px; 
+                -moz-border-radius: 8px; 
+                border-radius: 8px; 
+                padding:5px 10px;
+                text-decoration:none;
+
+
+
+                -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
+
+                color:#fff;
+            }
+        </style>
+        <script type="text/javascript">
+            var vb;
+            $(window).ready(function() {
+              
+
+                
+                vb = VisualBlur(function(canvas){
+
+                     $('body').append(canvas);
+                    vb.blurCanvas(canvas, {
+                        left: 0, 
+                        top: 0,
+                        width: canvas.width,
+                        height: canvas.height
+                    }, 30);
+                    $(canvas).hide().css({
+                        'position': 'absolute',
+                        'left': 0,
+                        'top': 0
+                    }).appendTo($('body')).click(function(){
+                        $('#blurOverlay').fadeOut('fast', function(){
+                            $(this).remove();
+                        })
+                        $(this).fadeOut(2000);
+                        
+                    }).fadeIn(2000, function(){
+                        var windowWidth = $(window).width(),
+                        windowHeight = $(window).height();
+                        $('<div />').attr('id','blurOverlay').css('left',(windowWidth / 2)).css('top',(windowHeight / 2)).appendTo($('body'))
+                        .animate({
+                            width: 300,
+                            height: 100,
+                            'left':(windowWidth / 2)-(300 / 2),
+                            'top':(windowHeight / 2)-(100 / 2),
+                            opacity: 1
+                        },1000).html("<h2>Overlay content</h2><p>Some very intriguing content...</p>").append($('<a />').attr('href','#').text('Close').addClass('closeButton').click(function(e){
+                            e.preventDefault();
+                            $(canvas).trigger('click');
+                        }));
+                        
+                    });
+                  
+                    
+                }); 
+         
+            });
+        </script>
+    </head>
+
+    <body>
+        <form id="form1" name="form1" method="post" action="">
+            <div id="topheader">
+                <div class="topmenu_area"><a href="#" class="home">Home</a> <a href="#" class="about">About</a> <a href="#" class="search">Search</a> </div>
+                <div class="banner_textarea">
+                    <p class="banner_head">Aenean mattis erat et nisi. Aenean molestie orci ut turpis. Morbi rhoncus elit non arcu. Phasellus ullamcorper vulputate libero. Fusce turpis lorem </p>
+                    <p>lorem, semper nec, dictum vitae, tempus et, libero. Nam neque. Aliquam id leo. Cras et erat vel odio convallis sodales. Maecenas</p>
+                </div>
+                <div class="search_menu_banner">
+                    <div class="search_background">
+                        <div class="searchname">Search</div>
+                        <div class="searchbox">
+                            <label>
+                                <input name="textfield" type="text" class="searchtextbox" />
+                            </label>
+                        </div>
+                        <div class="searchbox">
+                            <div align="center"><a href="#" class="go">go</a></div>
+                        </div>
+                    </div>
+                    <div class="menu_area"><a href="#" class="addidea">Add Ideas</a> <a href="#" class="loginhere">Login Here</a> <a href="#" class="comments">Comments</a> <a href="#" class="contact">Contact Us </a></div>
+                </div>
+            </div>
+            <div id="body_area">
+                <div class="left">
+                    <div class="morelinks_top"></div>
+                    <div class="morelinks_area">
+                        <div class="morelinks_head">More Links </div>
+                        <div class="links_morearea"><a href="#" class="morelink">Donec nonummy<span class="links_text"> ligulaet</span></a> <a href="#" class="morelink">porta <span class="links_text">sagittis mauris quam</span></a> <a href="#" class="morelink">Scelerisque<span class="links_text"> pede nec</span></a> <a href="#" class="morelink">Molestie <span class="links_text">onum</span></a> <br />
+                            <a href="#" class="morelink">Massa <span class="links_text">velit quis ante</span></a> <br />
+                            <a href="#" class="morelink">Duis tellus nibh <span class="links_text">nonummy</span></a> <a href="#" class="morelink">Ornare<span class="links_text"> interdum vitae</span></a> <br />
+                            <a href="#" class="morelink">Quisque laoreet<span class="links_text"> justo et</span></a> <a href="#" class="morelink">Mattis <span class="links_text">tristique mi</span></a> <br />
+                            <a href="#" class="morelink">Varius turpis <span class="links_text">maecen</span></a> <br />
+                            <a href="#" class="morelink">Eitae <span class="links_text">luctus pede </span></a><br />
+                        </div>
+                    </div>
+                    <div class="morelinks_bottom"></div>
+                </div>
+                <div class="body_area1">
+                    <div class="banner_bottom"></div>
+                    <div class="mid">
+                        <div class="tick_head">Welcome to <span class="tick_head1">FACING</span></div>
+                        <div class="inner_banner">
+                            <p class="worksheet">Worksheets</p>
+                            <p><a href="#" class="innerlink">Donec nonummy ligulaeporta</a> <a href="#" class="innerlink">Sagittis mauris quam </a><a href="#" class="innerlink">Scelerisque pede </a>
+                                <a href="#" class="innerlink">Nec molestie massa velit</a> 
+                                <a href="#" class="innerlink">Ante </a>
+                                <a href="#" class="innerlink">Duis tellus nibh</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right_area">
+                        <div class="right_top"></div>
+                        <div class="right_head">
+                            <div class="morelinks_head">Latest Blogs </div>
+                        </div>  
+                        <div class="right_links_area">
+                            <div class="links_morearea"><a href="#" class="morelink">Donec nonummy<span class="links_text"> ligulaet</span></a> <a href="#" class="morelink">porta <span class="links_text">sagittis mauris quam</span></a> <a href="#" class="morelink">Scelerisque<span class="links_text"> pede nec</span></a> <a href="#" class="morelink">Molestie <span class="links_text">onum</span></a> <br />
+                                <a href="#" class="morelink">Massa <span class="links_text">velit quis ante</span></a> <br />
+                            </div>
+                            <div class="freeregistration">
+                                <div align="center"><span class="free">Free</span> registration</div>
+                            </div>
+                        </div>
+                        <div class="right_bottom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="body_areabackground">
+                <div id="body_area1">
+                    <div class="inner_tabarea">
+                        <div class="inner_menu">
+                            <div align="center"><a href="#" class="innermenu_hover">Features</a> <a href="#" class="innermenu">Solutions</a> <a href="#" class="innermenu">Meeting</a> <a href="#" class="innermenu">Subscribe</a> </div>
+                        </div>
+                        <div class="tab_text">
+                            <p class="tab_head">ON 1ST OCTOBER 2007</p>
+                            <p><span class="tab_head1">Cras pharetra nunc ac nisi. Nulla facilisi</span><br />
+                                Nam ac elit non felis pharetra congue. Ut sodales, nisi a venenatis fermentum, tellus nisi auctor est, sed <a href="#" class="tablink">condimentum</a> eros justo ac nunc.</p>
+                        </div>
+                        <div class="tab_readmore">
+                            <p align="right" class="tab_head"><a href="#" class="readmore">Read More </a></p>
+                        </div>
+                        <div class="tab_text">
+                            <p><span class="tab_head1">Cras pharetra nunc ac nisi. Nulla facilisi</span><br />
+                                Nam ac elit non felis pharetra congue. Ut sodales, nisi a <a href="#" class="tablink">venenatis fermentum,</a> tellus</p>
+                        </div>
+                        <div class="tab_readmore">
+                            <p align="right" class="tab_head"><a href="#" class="readmore">Read More </a></p>
+                        </div>
+                    </div>
+                    <div class="login_area">
+                        <div class="login_head">Already a Member ?</div>
+                        <div class="login_textarea">
+                            <div class="login_name">Your Name </div>
+                            <div class="login_box">
+                                <label>
+                                    <input name="textfield2" type="text" class="logintextbox" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="login_textarea">
+                            <div class="login_name">Password </div>
+                            <div class="login_box">
+                                <label>
+                                    <input name="textfield22" type="text" class="logintextbox" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="login_textarea"><a href="#" class="register">Get Registration Now</a> <a href="#" class="login">Login</a> </div>
+                    </div>
+                    <div class="toolfree_area">
+                        <div class="call_free"><span class="callus">Call Us</span> <span class="callno">+01-6678-0098</span></div>
+                        <div class="bookmark">Bookmark This Page</div>
+                        <div class="facing"></div>
+                    </div>
+                </div></div>
+            <div id="fotter">
+                <div id="fotter_1">
+                    <div class="fotter_leftarea">
+                        <div class="fotter_links">
+                            <a href="#" class="fotterlink">Home</a>  |  <a href="#" class="fotterlink">About Us</a>  |  <a href="#" class="fotterlink">Production</a>  |  <a href="#" class="fotterlink">Our Goals</a>  |  <a href="#" class="fotterlink">Forum</a>  |  <a href="#" class="fotterlink">More Blogs</a>  |  <a href="#" class="fotterlink">Updates</a>  |  <a href="#" class="fotterlink">Contact</a> </div>
+                        <div class="fotter_designed">Designed by: <a href="http://www.templateworld.com" class="fotter_designedlink">template world</a> </div>
+                    </div>
+                    <div class="fotter_rightarea">
+                        <div class="fotter_validation"><a href="http://validator.w3.org/check?uri=referer" class="validation">XHTML</a> <a href="http://jigsaw.w3.org/css-validator/check/referer" class="validation">CSS</a></div>
+                        <div class="fotter_copyrights">Copyright Information Goes Here.<br /> 
+                            All Rights Reserved.</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!--
+* @author Niklas von Hertzen <niklas at hertzen.com>
+* @created 9.7.2011 
+* @website http://hertzen.com
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="#" type="text/css" rel="stylesheet"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" src="../html2webgl.js"></script>
+        <script type="text/javascript" src="../three.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                var html3d = $('body').html2webgl({
+                    cameraControl:false,
+                    cameraDistance:390
+                });
+                
+
+                
+                html3d.ready(function(){
+                   
+                    html3d.camera.animate($('div').origin(),1000);                                  
+                });
+                
+                
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+        <div style="width:336px;height:210px;background:#000;"></div>
+    </body>
+</html>

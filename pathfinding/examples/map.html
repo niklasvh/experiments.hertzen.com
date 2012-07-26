@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>JavaScript PathFinder Map example</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Niklas von Hertzen">
+
+        <!-- Le styles -->
+        <link href="/base/css/bootstrap.css" rel="stylesheet">
+        <link href="/base/css/style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons 
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        -->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://hertzen.com/experiments/pathfinding/examples/map.html">JavaScript PathFinder Map example</a>
+                    <div class="nav-collapse">
+                         
+                    </div><!--/.nav-collapse -->
+
+                    <p class="navbar-text pull-right" style="padding-top:5px;margin-bottom:-5px;">
+
+
+
+                        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hertzen.com/experiments/pathfinding/examples/map.html"  data-count="horizontal" data-via="niklasvh">Tweet</a>
+                      
+                        <!-- Place this tag where you want the +1 button to render -->
+                        <g:plusone size="medium" annotation="inline" href="http://hertzen.com/experiments/pathfinding/examples/map.html" width="250"></g:plusone>
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+   
+
+<script type="text/javascript" src="../build/jspathfinding.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript">
+            
+    $(function(){
+             
+        var nodes = {};
+        var PathFinder = new PathFinding();
+        $('#map').load(function(){
+            var canvas = document.createElement('canvas'), ctx = canvas.getContext("2d"), w = 1500, h = 816, nodeSize = 3;
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(this, 0, 0);
+            var data = ctx.getImageData(0, 0, w, h);
+                    
+            var pos = 0;
+                    
+            for (var r = 1; r <= h; r += nodeSize){
+                        
+                for (var c = 1; c <= w; c += nodeSize){
+                    
+                    
+                    if ( data.data[pos + 2] == 221 ){
+                        if (nodes[r] === undefined){
+                            nodes[r] = {};
+                        }
+                        nodes[r][c] = PathFinder.addNode(c, r);
+                                
+                        // add vertices
+                        if (nodes[r][c-nodeSize] !== undefined){
+                            nodes[r][c].addVertex(nodes[r][c-nodeSize]);
+                        }
+                            
+                        if (nodes[r-nodeSize] !== undefined && nodes[r-nodeSize][c] !== undefined){
+                            nodes[r][c].addVertex(nodes[r-nodeSize][c]);
+                        }
+                            
+                                  
+                    }
+                            
+                    pos += 4*nodeSize;
+                            
+                }         
+                pos += 4*w*2;
+                       
+            }
+            //ctx.putImageData(data, 0, 0);
+            //    $(this).remove();
+            delete canvas;
+                    
+            var start = nodes[4][307];
+            var end = nodes[814][1495];
+                   
+                   
+            function findRoute(start, end){
+                var canvas;
+                $(".maps canvas").remove();
+                    
+                var route = PathFinder.Solver(start,end);
+                        
+                if (route === false){
+                    alert("No route found");
+                }else{
+                        
+                    canvas = document.createElement('canvas'), ctx = canvas.getContext("2d");
+                    canvas.width = w;
+                    canvas.height = h;
+                    
+                    ctx.beginPath(); 
+                    ctx.moveTo(start.x, start.y);
+                
+                    for (var r = 0, rlen = route.length; r < rlen; r++){
+                        ctx.lineTo(route[r].x,route[r].y);
+                    }
+                    $(canvas).click(function(e){
+                        var x = e.pageX - $(this).offset().left;
+                        x -= x % 3;
+                        x += 1;
+                        var y = e.pageY - $(this).offset().top;
+                        y -= y % 3;
+                        y += 1;
+                        if (nodes[y] !== undefined && nodes[y][x] !== undefined){
+                            findRoute(end, nodes[y][x]);
+                                
+                        }
+                        //  console.log(y);
+                            
+                           
+                    });
+              
+                    ctx.stroke(); 
+                    $('.maps').append(canvas);
+                }
+            }
+                    
+            findRoute(start, end);
+            // console.log(route);
+               
+                    
+        });
+                
+          
+               
+             
+               
+    });        
+</script>
+<style>
+    td{
+        width:10px;
+        height:10px;
+        border:1px solid black;
+        cursor:pointer;
+    }
+    .maps img, .maps canvas{
+        position:absolute;
+        top:0;
+        left:0;
+
+    }
+    .maps{
+        position:relative;
+        height:816px;
+        width:1500px;
+        margin:0 auto;
+    }
+</style>
+<div class="container">
+
+    <h2>Pathfinding with JavaScript</h2>
+    <p>
+        This example doesn't include any pre-computed nodes or vertices, but instead reads the image pixel by pixel (3x3) and identifies where water is present and adds nodes and vertices accordingly. 
+        The shortest path algorithm used in this example is the <a href="http://en.wikipedia.org/wiki/A*_search_algorithm">A* search algorithm</a>, which uses a best-first approach to find the most cost effective route.  
+        If there is no solution, it ends up running through all the 87,134 nodes in this map, effectively doing the same search as <a href="http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">Dijkstra's algorithm</a> does, before concluding that there is no result.
+
+    </p>
+    <p>The performance of the search could be significantly improved by pre-assigning nodes in relevant positions (like intersections in real road-networks), instead of assigning a node to every single position that is accessible. It would lower the number of nodes to traverse and inaccessible nodes wouldn't be present to begin with.
+
+
+
+    </p>
+    <p>
+
+        As this example uses canvas to create the nodes, IE 9 or higher is required. For non-canvas examples, check out <a href="../index.html">these examples</a>.
+    </p>
+</div>
+<div class="maps">
+    <img src="map.png" id="map" />
+
+</div>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="profile">
+            <h3>Niklas von Hertzen<span>hertzen.com</span></h3>
+            <a href="https://twitter.com/niklasvh"><img src="/base/img/twitter.png" alt="Twitter" /></a>
+            <a href="https://plus.google.com/115030581977322198102/posts"><img src="/base/img/google-plus-black.png" alt="Google+" /></a>
+           <a href="https://facebook.com/vonhertzen"><img src="/base/img/facebook.png" alt="Facebook" /></a>
+           <a href="https://github.com/niklasvh"><img src="/base/img/github.png" alt="Github" /></a>
+           <a href="http://fi.linkedin.com/pub/niklas-von-hertzen/16/522/5ab"><img src="/base/img/linkedin.png" alt="LinkedIn" /></a>
+        </div>
+    </div>
+
+</footer>
+
+<script>
+
+    // google analytics         
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-188600-10']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();   
+    // twitter         
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // google plus
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+
+</body>
+</html>

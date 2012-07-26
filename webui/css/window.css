@@ -1,0 +1,461 @@
+/*
+    Document   : window
+    Created on : 9.12.2011, 17:11:23
+    Author     : Niklas von Hertzen <niklas at hertzen.com>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+fieldset{
+    margin:0;
+    padding:0;
+}
+
+legend {
+    font-family: "MS Shell Dlg";
+}
+
+
+
+.winapi-window {
+    z-index:9999;
+    position:absolute;
+    border-radius: 5px 5px 0 0;
+    border:1px solid black;
+    background: #cedce9;
+    overflow:hidden;
+
+}
+
+.winapi-inner-window {
+    position:absolute;
+    background: #f0f0f0;
+}
+
+.winapi-statusbar {
+    position:absolute;
+    background: #f1eded;
+    border: 1px solid #fff;
+}
+
+.winapi-progressbar{
+    position:absolute; 
+}
+
+.winapi-toolbar{
+    position:absolute; 
+}
+
+.winapi-tooltip{
+    position:absolute; 
+}
+
+
+.winapi-table {
+    position:absolute; 
+}
+
+.winapi-tree{
+    overflow:hidden;
+    position:absolute; 
+}
+
+.winapi-treeitem{
+    position:absolute; 
+}
+
+.winapi-pane{
+    position:absolute; 
+}
+
+.winapi-splitbutton{
+    position:absolute; 
+}
+
+.winapi-header{
+   
+    position:absolute; 
+}
+
+.winapi-tabitem{
+    position:absolute;
+    border:1px solid #898c95;
+    border-bottom:1px solid #fff;
+   background: #fff;
+}
+
+.winapi-tabitem > span {
+    display:block;
+    text-align:center;
+}
+
+.winapi-tab {
+    position:absolute;
+    background: #fff;
+    border:1px solid #898c95;
+}
+
+.winapi-menubar {
+    position:absolute;
+
+    background-color: #fefeff;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fefeff), to(#d9dff0));
+    background-image: -webkit-linear-gradient(top, #fefeff, #d9dff0);
+    background-image:    -moz-linear-gradient(top, #fefeff, #d9dff0);
+    background-image:     -ms-linear-gradient(top, #fefeff, #d9dff0);
+    background-image:      -o-linear-gradient(top, #fefeff, #d9dff0);
+    background-image:         linear-gradient(top, #fefeff, #d9dff0);
+    border-bottom: 1px solid #b6bccc;
+}
+
+
+#desktop {
+    line-height:13px;
+     font-family: "MS Shell Dlg";
+    font-size:11px;
+}
+
+.winapi-text {
+    position:absolute;
+     font-family: "MS Shell Dlg";
+}
+
+.winapi-checkbox {
+    position:absolute;
+
+}
+
+.winapi-separator{
+    position:absolute;
+    background:#fff;
+}
+
+.winapi-edit {
+    position:absolute;
+    border:1px solid #abadb3;
+    background: #fff;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+}
+
+.winapi-button{
+    overflow:hidden;
+    position:absolute;
+    background:#ccc;
+    border: 1px solid #707070;
+
+    text-align:center;
+    background-color: #f2f2f2;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#d1d1d1));
+    background-image: -webkit-linear-gradient(top, #f2f2f2, #d1d1d1);
+    background-image:    -moz-linear-gradient(top, #f2f2f2, #d1d1d1);
+    background-image:     -ms-linear-gradient(top, #f2f2f2, #d1d1d1);
+    background-image:      -o-linear-gradient(top, #f2f2f2, #d1d1d1);
+    background-image:         linear-gradient(top, #f2f2f2, #d1d1d1);
+
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+
+    -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+
+
+}
+
+.winapi-button[data-enabled="false"] {
+    color: #838383 !important;
+    background: #f4f4f4 !important;
+}
+
+.winapi-scrollbar .winapi-button span {
+    color:transparent;
+}
+
+.winapi-document {
+    position:absolute;
+    background:#fff;
+    overflow:hidden;
+
+}
+
+.winapi-titlebar {
+    position:absolute;
+}
+
+.winapi-menu{
+    z-index:999;
+    position:absolute;
+    text-align:left;
+    background: #f1f1f1;
+    border:1px solid #979797;
+
+    -webkit-box-shadow: 2px 2px 2px #8e8e8e;
+    -moz-box-shadow: 2px 2px 2px #8e8e8e;
+    box-shadow: 2px 2px 2px #8e8e8e;
+
+}
+
+.winapi-menu .winapi-menuitem {
+    text-align:left !important;
+
+}
+
+.winapi-menu .winapi-menuitem:hover{
+    border-color: #a8d8eb;
+
+
+    background-color: #e8f0f4;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#e8f0f4), to(#dbecf4));
+    background-image: -webkit-linear-gradient(top, #e8f0f4, #dbecf4);
+    background-image:    -moz-linear-gradient(top, #e8f0f4, #dbecf4);
+    background-image:     -ms-linear-gradient(top, #e8f0f4, #dbecf4);
+    background-image:      -o-linear-gradient(top, #e8f0f4, #dbecf4);
+    background-image:         linear-gradient(top, #e8f0f4, #dbecf4);
+
+
+}
+
+.winapi-menu .winapi-menuitem span{
+    padding-left:30px;
+}
+
+.winapi-scrollbar {
+    position:absolute;
+    background: #f0f0f0;
+}
+
+.winapi-scrollbar .winapi-button[data-name="Back by small amount"] {
+    background: url(../img/scroll-up.png) 7px 7px no-repeat;
+}
+
+.winapi-scrollbar .winapi-button[data-name="Forward by small amount"] {
+    background: url(../img/scroll-down.png) 7px 7px no-repeat;
+}
+
+.winapi-scrollbar[data-name="Horizontal Scroll Bar"] .winapi-button[data-name="Back by small amount"] {
+    background: url(../img/scroll-left.png) 7px 7px no-repeat;
+}
+
+.winapi-scrollbar[data-name="Horizontal Scroll Bar"] .winapi-button[data-name="Forward by small amount"] {
+    background: url(../img/scroll-right.png) 7px 7px no-repeat;
+}
+
+.winapi-scrollbar .winapi-menuitem span {
+    display:none;
+}
+
+.winapi-window-title{
+    padding-left:5px;
+    padding-top:2px;
+}
+
+.winapi-titlebar .winapi-menubar > .winapi-menuitem {
+    background:none;
+    color:transparent;
+    border:0;
+}
+
+.winapi-titlebar .winapi-menubar > .winapi-menuitem .winapi-menuitem {
+
+    color:#000;
+
+}
+
+.winapi-titlebar .winapi-menubar{
+    background:none;
+
+    border:0;
+}
+
+
+.winapi-list {
+    border:1px solid #828790;
+    overflow:hidden;
+    position:absolute;
+    background: #fff;
+}
+
+.winapi-listitem {
+    position:absolute;
+
+}
+
+.winapi-group {
+    position:absolute;
+}
+
+.winapi-thumb {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    border:1px solid #979797;
+    position:absolute;
+}
+
+.winapi-scrollbar .winapi-button{
+    background:transparent;
+    border:0;
+}
+
+.winapi-radiobutton {
+    position:absolute;
+}
+
+.winapi-combobox[data-expandcollapse="true"] {
+    background: #fff;
+    border:1px solid #abadb3;
+}
+
+.winapi-combobox .winapi-combobox-value {
+    position:absolute;
+}
+
+.winapi-combobox[data-expandcollapse="true"] .winapi-list {
+    position:relative;
+    display:none;
+    z-index:999;
+}
+
+.winapi-combobox[data-expandcollapse="true"] .winapi-listitem {
+    position:static;
+}
+
+.winapi-combobox .winapi-button span {
+    display:none;
+}
+
+.winapi-combobox .winapi-button[data-name="Drop Down Button"]  {
+    border:0;
+    background: url(../img/scroll-down.png) 7px 7px no-repeat;
+}
+
+.winapi-scrollbar[data-name="Horizontal Scroll Bar"] .winapi-thumb {
+    background-image: linear-gradient(top , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+    background-image: -o-linear-gradient(top , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+    background-image: -moz-linear-gradient(top , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+    background-image: -webkit-linear-gradient(top , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+    background-image: -ms-linear-gradient(top , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.25, rgb(244,244,244)),
+        color-stop(0.63, rgb(192,192,196))
+        );
+}
+
+.winapi-scrollbar[data-name="Vertical Scroll Bar"] .winapi-thumb {
+    background-image: linear-gradient(left , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+    background-image: -o-linear-gradient(left , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+    background-image: -moz-linear-gradient(left , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+    background-image: -webkit-linear-gradient(left , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+    background-image: -ms-linear-gradient(left , rgb(244,244,244) 25%, rgb(192,192,196) 63%);
+
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        right bottom,
+        color-stop(0.25, rgb(244,244,244)),
+        color-stop(0.63, rgb(192,192,196))
+        );
+}
+
+.winapi-combobox {
+    position:absolute;
+
+}
+
+.winapi-combobox .winapi-edit {
+
+    border:1px solid #3d7bad;
+    background: #fff;
+    padding:2px;
+}
+
+.winapi-combobox [data-selectionitem="true"] {
+    background: #3399ff;
+    color: #fff;
+}
+
+.winapi-window-title {
+    position:absolute;
+}
+
+.winapi-titlebar .winapi-button[data-name="Close"] span {
+    display:none;
+}
+
+.winapi-titlebar .winapi-button[data-name="Maximize"] span {
+    display:none;
+}
+
+.winapi-menuitem[data-toggle="true"]:before {
+    content: "✔";
+    color: #0c12a1;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    background:  #e6eff4;
+
+    position:absolute;
+    margin-left:0px;
+    border:1px solid #cdd3e6;
+    width:20px;
+
+    height:20px;
+    line-height:20px;
+    text-align:center;
+    display:block;
+}
+
+
+
+.winapi-titlebar .winapi-button[data-name="Minimize"] span {
+    display:none;
+}
+
+
+.winapi-titlebar .winapi-button[data-name="Close"] {
+
+    border-color: #431422;
+    background-color: #e7a498;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#e7a498), to(#ba4932));
+    background-image: -webkit-linear-gradient(top, #e7a498, #ba4932);
+    background-image:    -moz-linear-gradient(top, #e7a498, #ba4932);
+    background-image:     -ms-linear-gradient(top, #e7a498, #ba4932);
+    background-image:      -o-linear-gradient(top, #e7a498, #ba4932);
+    background-image:         linear-gradient(top, #e7a498, #ba4932);
+
+}
+.winapi-menuitem {
+    cursor:default;
+    position:absolute;
+    text-align:center;
+    border:1px solid transparent;
+}
+
+.winapi-menuitem[data-enabled="false"] {
+    color:#808080;
+}
+
+.winapi-menuitem:hover {
+    border-color: #b0b1b1;
+    border-radius:4px;
+}
+
+
+#desktop{
+    position:absolute;
+    top:0;
+    left:0;
+}
+

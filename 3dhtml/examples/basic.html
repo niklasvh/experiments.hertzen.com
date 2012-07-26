@@ -1,0 +1,76 @@
+<!--
+* @author Niklas von Hertzen <niklas at hertzen.com>
+* @created 3.7.2011 
+* @website http://hertzen.com
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Basic Example</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="#" type="text/css" rel="stylesheet"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" src="../html2webgl.js"></script>
+        <script type="text/javascript" src="../three.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                var html3d = $('body').html2webgl({
+                    cameraControl:false,
+                    cameraDistance:1780
+                });
+                
+
+                
+                html3d.ready(function(){
+                    html3d.cameraTarget.delay(500);
+                    html3d.camera.animate({
+                        margin: '-=1500',
+                        left: $('h1').position().left,
+                        top: $('h1').position().top
+                    },1000).delay(500).animate($('#highlight').origin(),1000);                                   
+                });
+                
+                
+                
+                
+            });
+        </script>
+        <style>
+            div{
+                padding:20px;
+                margin:0 auto;
+                border:5px solid black;
+            }
+
+            h1{
+                border-bottom:2px solid white;
+            }
+
+            h2{
+                background: #efefef;
+                padding:10px;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div style="background:red;">
+            <div style="background:green;">
+                <div style="background:blue;border-color:white;">
+                    <div style="background:yellow;"><div style="background:orange;"><h1>Heading</h1>
+                            Text that isn't wrapped in anything.
+                            <p>Followed by some text wrapped in a <b>&lt;p&gt; paragraph.</b> </p>
+                            Maybe add a <a href="#">link</a> or a different style of <a href="#" style="background:white;" id="highlight">link with a highlight</a>.
+                            <hr />
+                            <h2>More content</h2>
+
+                        </div></div>
+
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

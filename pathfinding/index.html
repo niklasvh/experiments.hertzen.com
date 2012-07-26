@@ -1,0 +1,125 @@
+<!--
+* @author Niklas von Hertzen <niklas at hertzen.com>
+* @created 12.8.2011 
+* @website http://hertzen.com
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JavaScript PathFinder</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <script type="text/javascript" src="build/jspathfinding.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
+             
+                function addTable (table, diagonal){
+                    var PathFinder = new PathFinding();
+                
+
+                
+                    var nodes = [];
+         
+                    for (var r = 0; r<10; r++){
+                        nodes[r] = [];
+                        var tr = $('<tr />').appendTo(table);
+                        for (var c = 0; c <10; c++){
+                 
+                            var td = $('<td />').appendTo(tr);
+                            
+                            // add walls
+                            if ((c==3 && r == 3) || (c==4 && r == 3) || (c==5 && r == 3) || (c==6 && r == 3) || (c==6 && r == 4) || (c==6 && r == 5)){
+                                td.css('background','black');         
+                            }else{
+                                
+                                // add noves
+                                nodes[r][c] = PathFinder.addNode(c, r);
+                                
+                                // add verticies between nodes
+                                if (nodes[r][c-1] !== undefined){
+                                    nodes[r][c].addVertex(nodes[r][c-1]);
+                                }
+                            
+                                if (nodes[r-1] !== undefined && nodes[r-1][c] !== undefined){
+                                    nodes[r][c].addVertex(nodes[r-1][c]);
+                                }
+                            
+                                // some more verticies, if we want diagonal movement
+                                if(diagonal){
+                                    if (nodes[r-1] !== undefined && nodes[r-1][c-1] !== undefined){
+                                        nodes[r][c].addVertex(nodes[r-1][c-1]);
+                                    }                        
+                                    if (nodes[r-1] !== undefined && nodes[r-1][c+1] !== undefined){
+                                        nodes[r][c].addVertex(nodes[r-1][c+1]);
+                                    } 
+   
+                                }
+                            
+                            }
+                        
+                 
+                 
+                        }
+                    }
+                
+
+                    table.delegate("td","click",function(){
+                        var current = table.find('.current').removeClass('current');
+                        $(this).addClass('current');
+                        var route = PathFinder.AStarSolver(nodes[current.parent().index()][current.index()],nodes[$(this).parent().index()][$(this).index()]);
+                
+                        (function(i, route){
+                            function timer(){
+                                if (i < route.length){
+                                    window.setTimeout(function(){
+                                        table.find('tr').eq(route[i].y).find("td").eq([route[i].x]).css('background','green');
+                                
+                                        (function(i,route){
+                                            window.setTimeout(function(){                               
+                                                table.find('tr').eq(route[i].y).find("td").eq([route[i].x]).css('background','transparent');                                                  
+                                            },1000);
+                                        })(i, route);     
+                                
+                                        i++;
+                                        timer();
+                                    },40);
+                                }
+                            }
+                            timer();   
+                        })(0, route);            
+                    
+                    });
+                    table.find("tr").eq(8).find("td").eq(1).addClass('current');
+                    table.find("tr").eq(6).find("td").eq(8).trigger('click');
+                
+              
+                }
+                
+               
+                addTable($('#table1'), true);
+                addTable($('#table2'), false); 
+            });        
+        </script>
+        <style>
+            td{
+                width:10px;
+                height:10px;
+                border:1px solid black;
+                cursor:pointer;
+            }
+            .current{
+                border-color:red;
+            }
+        </style>
+
+
+    </head>
+    <body>
+   
+        <h2>With diagonal movement</h2>
+        <table id="table1"></table>
+        <h2>Without diagonal movement</h2>
+        <table id="table2"></table>
+    </body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Windows through Web Sockets</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Niklas von Hertzen">
+
+        <!-- Le styles -->
+        <link href="/base/css/bootstrap.css" rel="stylesheet">
+        <link href="/base/css/style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons 
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        -->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://hertzen.com/experiments/webui/preview/">Windows through Web Sockets</a>
+                    <div class="nav-collapse">
+                         
+                    </div><!--/.nav-collapse -->
+
+                    <p class="navbar-text pull-right" style="padding-top:5px;margin-bottom:-5px;">
+
+
+
+                        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hertzen.com/experiments/webui/preview/"  data-count="horizontal" data-via="niklasvh">Tweet</a>
+                      
+                        <!-- Place this tag where you want the +1 button to render -->
+                        <g:plusone size="medium" annotation="inline" href="http://hertzen.com/experiments/webui/preview/" width="250"></g:plusone>
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+   
+<div class="container">
+
+    <h1>Windows UI with HTML & JavaScript</h1>
+    <p>
+        A JavaScript application which communicates with a server (Microsoft Windows) through WebSockets. 
+        The server sends only relevant information regarding what the UI consists of and what kind of actions it wants the client to send back, minimizing the traffic communicated between the client and the server. 
+    </p>
+    <p>
+        The client (users browser) sends actions which the server has requested to be registered, such as button, menu and other clicks, keyboard inputs, item selections etc. 
+    </p>
+
+    <p>The server can attach itself to processes upon launching or existing ones and after sending the initial structure and properties to the client (which the JavaScript client uses to build the UI from), it then subscribes to structure, event and property changes within the process, so when some controls or elements change, get added or removed, those changes will get reflected on the clients HTML UI as well.</p>
+
+
+    <h2>Purpose</h2>
+    <p>There currently isn't really any real purpose for this application yet, I am just exploring some ideas for my thesis regarding cloud applications. On a practical level, this application does perform significantly faster than a VNC (which shouldn't come as a big surprise as the amount of data sent inbetween the server and client is far less), but has a lot stricter requirements on what kind of binary programs it can render correctly at the moment.</p>
+
+    <p>As it doesn't require any plugins on the clients side (it only uses WebSockets, HTML5 and CSS3), it can be used on many mobile devices, tablets etc. giving access to many Windows applications which may not be available on those devices, while still keeping the response time at a usable level. </p>
+
+    <h2>Previews</h2>
+    <p>
+        Note that as the HTML interface only registers actions such as clicks and keyboard events, without a connection to the server it won't be able to perform any actions. However, below are some DOM dumps with the corresponding screenshots from the server. As the previews use CSS3 selectors, they will only render correctly on modern browsers.
+
+    </p>
+    <h4>Notepad</h4>
+    <iframe src="../frame1.html" style="width:660px;height:550px;"></iframe>
+    <img src="screen1.jpg" alt="Notepad" align="right"/>
+    <p>
+        Note that the application only sent the visible parts of the document, meaning that even though the file itself was several hunder kB, only the visible somewhat 20 lines were sent. Other noteable things are that scrollbars, textboxs, comboboxes etc. are all div/span elements instead of their HTML counterparts, simply because the Windows UI controls don't act always the same way as their HTML counterparts.
+    </p>
+
+    <p>
+        (Will be adding more previews shortly, as well as some videos of the application in action)
+    </p>
+
+
+</div>
+<footer>
+    <div class="container">
+        <div class="profile">
+            <h3>Niklas von Hertzen<span>hertzen.com</span></h3>
+            <a href="https://twitter.com/niklasvh"><img src="/base/img/twitter.png" alt="Twitter" /></a>
+            <a href="https://plus.google.com/115030581977322198102/posts"><img src="/base/img/google-plus-black.png" alt="Google+" /></a>
+           <a href="https://facebook.com/vonhertzen"><img src="/base/img/facebook.png" alt="Facebook" /></a>
+           <a href="https://github.com/niklasvh"><img src="/base/img/github.png" alt="Github" /></a>
+           <a href="http://fi.linkedin.com/pub/niklas-von-hertzen/16/522/5ab"><img src="/base/img/linkedin.png" alt="LinkedIn" /></a>
+        </div>
+    </div>
+
+</footer>
+
+<script>
+
+    // google analytics         
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-188600-10']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();   
+    // twitter         
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // google plus
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+
+</body>
+</html>

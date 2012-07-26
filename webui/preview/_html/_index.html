@@ -1,0 +1,37 @@
+<div class="container">
+
+    <h1>Windows UI with HTML & JavaScript</h1>
+    <p>
+        A JavaScript application which communicates with a server (Microsoft Windows) through WebSockets. 
+        The server sends only relevant information regarding what the UI consists of and what kind of actions it wants the client to send back, minimizing the traffic communicated between the client and the server. 
+    </p>
+    <p>
+        The client (users browser) sends actions which the server has requested to be registered, such as button, menu and other clicks, keyboard inputs, item selections etc. 
+    </p>
+
+    <p>The server can attach itself to processes upon launching or existing ones and after sending the initial structure and properties to the client (which the JavaScript client uses to build the UI from), it then subscribes to structure, event and property changes within the process, so when some controls or elements change, get added or removed, those changes will get reflected on the clients HTML UI as well.</p>
+
+
+    <h2>Purpose</h2>
+    <p>There currently isn't really any real purpose for this application yet, I am just exploring some ideas for my thesis regarding cloud applications. On a practical level, this application does perform significantly faster than a VNC (which shouldn't come as a big surprise as the amount of data sent inbetween the server and client is far less), but has a lot stricter requirements on what kind of binary programs it can render correctly at the moment.</p>
+
+    <p>As it doesn't require any plugins on the clients side (it only uses WebSockets, HTML5 and CSS3), it can be used on many mobile devices, tablets etc. giving access to many Windows applications which may not be available on those devices, while still keeping the response time at a usable level. </p>
+
+    <h2>Previews</h2>
+    <p>
+        Note that as the HTML interface only registers actions such as clicks and keyboard events, without a connection to the server it won't be able to perform any actions. However, below are some DOM dumps with the corresponding screenshots from the server. As the previews use CSS3 selectors, they will only render correctly on modern browsers.
+
+    </p>
+    <h4>Notepad</h4>
+    <iframe src="../frame1.html" style="width:660px;height:550px;"></iframe>
+    <img src="screen1.jpg" alt="Notepad" align="right"/>
+    <p>
+        Note that the application only sent the visible parts of the document, meaning that even though the file itself was several hunder kB, only the visible somewhat 20 lines were sent. Other noteable things are that scrollbars, textboxs, comboboxes etc. are all div/span elements instead of their HTML counterparts, simply because the Windows UI controls don't act always the same way as their HTML counterparts.
+    </p>
+
+    <p>
+        (Will be adding more previews shortly, as well as some videos of the application in action)
+    </p>
+
+
+</div>

@@ -1,0 +1,64 @@
+
+<script type="text/javascript" src="build/jsfont.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+       
+        window.URL = window.URL || window.webkitURL; 
+        var style = document.createElement("style");
+        style.type = "text/css";
+        var randomizeFont = function(){
+            document.getElementById("test").appendChild(style);
+            
+            var font = new JSFONT("fonts/ConsolaMono.ttf", function(){
+                    
+                this.tables.glyf.glyphs[36].data.yCoordinates[Math.round((Math.random()*5))] = Math.round((Math.random()-0.5)*800);
+  
+                        
+                $('button').prop('disabled',false);
+                var writer = this.compile();
+                    
+                    
+      
+               
+
+                var blobUrl = writer.blob();
+                style.innerHTML = "@font-face { font-family: 'test'; src: url("+blobUrl+"); } #test { font-family: 'test'  }";
+    
+         
+                       
+                window.setTimeout(function(){
+                    window.URL.revokeObjectURL(blobUrl); 
+                           
+                },100);
+                        
+                $('button').unbind('click').click(function(){
+                            
+                    randomizeFont();
+                    $(this).prop('disabled',true);
+                });
+                 
+                $('#log').unbind('click').click(function(){
+                    console.log(font.tables); 
+                });
+                                        
+                      
+                        
+                       
+                    
+            });
+                
+        }
+        randomizeFont();
+         
+
+    });        
+</script>
+
+<div class="container">
+
+    <h2>Glyph modification</h2>
+    <div id="test" contenteditable style="text-decoration:underline;font-size:200px;height:200px;line-height:200px;margin-bottom:50px;">AAAAAA</div>
+    <button id="warp">Warp glyph</button><input type="button" id="log" value="console.log() font tables"/>
+
+</div>

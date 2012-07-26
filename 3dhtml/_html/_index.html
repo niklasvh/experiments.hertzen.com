@@ -1,0 +1,55 @@
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="html2webgl.js"></script>
+<script type="text/javascript" src="three.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#thispage').click(function(){        
+            $('body').html2webgl();
+            return false;
+        });          
+    });        
+</script>
+
+<style>
+    .examples li{
+        list-style-type:none;
+        float:left; 
+        width:120px;
+        margin-bottom:10px;
+
+    }
+    
+    .examples  img {
+        border-radius: 4px;
+        border: 1px solid black;
+    }
+
+
+</style>
+
+<div class="container">
+
+    <h1>HTML in 3D</h1>
+    <p>These examples use html2canvas to create elements in 3D and render them in WebGL through THREE.js with an anaglyph renderer.
+    <h2>Examples</h2>
+
+    <ul class="examples">
+        <li><a href="examples/basic.html" title="Basic" target="_blank"><img src="images/1.jpg" alt="Basic" /></a></li>
+        <li><a href="examples/pyramid.html" title="Pyramid" target="_blank"><img src="images/2.jpg" alt="Pyramid" /></a></li>
+
+        <li><a href="examples/demo2.html" title="HTML elements" target="_blank"><img src="images/4.jpg" alt="HTML elements" /></a></li>
+
+        <li><a href="examples/demo.html" title="Basic template" target="_blank"><img src="images/3.jpg" alt="Basic template" /></a></li>
+        <li><a href="tests/dusky/index.html" title="Dusky template" target="_blank"><img src="images/8.jpg" alt="Dusky template" /></a></li>
+        <li><a href="tests/projection/index.html" title="Projection template" target="_blank"><img src="images/9.jpg" alt="Projection template" /></a></li>
+        <li><a href="tests/facing/index.html" title="Facing template" target="_blank"><img src="images/11.jpg" alt="Facing template" /></a></li>
+        <li><a href="tests/artificial/index.html" title="Artificial template" target="_blank"><img src="images/10.jpg" alt="Artificial template" /></a></li>
+        <li><a href="tests/arrangement/index.html" title="Arrangement template" target="_blank"><img src="images/5.jpg" alt="Arrangement template" /></a></li>
+        <li><a href="tests/combination/index.html" title="Combination template" target="_blank"><img src="images/6.jpg" alt="Combination template" /></a></li>
+        <li><a href="tests/palmtrees/index.html" title="Palmtrees template" target="_blank"><img src="images/7.jpg" alt="Palmtrees template" /></a></li>
+
+    </ul>
+
+
+</div>

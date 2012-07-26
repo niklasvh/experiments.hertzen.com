@@ -1,0 +1,28 @@
+<!--
+* @author Niklas von Hertzen <niklas at hertzen.com>
+* @created 9.12.2011 
+* @website http://hertzen.com
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Windows API in HTML</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/window.css" type="text/css" rel="stylesheet"> 
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+        <script type="text/javascript" src="js/webui.js"></script>
+        <script type="text/javascript">
+            $(function(){ 
+                var api = winAPI;    
+                api.connect('ws://webui.local:8181/websession');
+            });        
+        </script>
+
+
+     
+    </head>
+    <body>
+        <div id="desktop"></div>
+    </body>
+</html>

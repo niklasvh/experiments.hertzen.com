@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>CSS3 Sudoku solution solver</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Niklas von Hertzen">
+
+        <!-- Le styles -->
+        <link href="/base/css/bootstrap.css" rel="stylesheet">
+        <link href="/base/css/style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons 
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        -->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://www.hertzen.com/experiments/css3sudoku/">CSS3 Sudoku solution solver</a>
+                    <div class="nav-collapse">
+                         
+                    </div><!--/.nav-collapse -->
+
+                    <p class="navbar-text pull-right" style="padding-top:5px;margin-bottom:-5px;">
+
+
+
+                        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.hertzen.com/experiments/css3sudoku/"  data-count="horizontal" data-via="niklasvh">Tweet</a>
+                      
+                        <!-- Place this tag where you want the +1 button to render -->
+                        <g:plusone size="medium" annotation="inline" href="http://www.hertzen.com/experiments/css3sudoku/" width="250"></g:plusone>
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+   
+<div class="container">
+    <h1>CSS3 Sudoku solution solver</h1>
+
+    <h2>Introduction</h2>
+    <p>
+        Here's another small experiment with CSS3, this time applying some logic to the application, which in this case is a Sudoku game. 
+        It is a Sudoku solution checker which is <a href="sudoku.css">purely performed with CSS</a>. 
+        It uses <a href="http://www.w3.org/TR/css3-selectors/#attribute-selectors">attribute selectors</a> and the <a href="http://www.w3.org/TR/css3-selectors/#general-sibling-combinators">general sibling combinator (~)</a>, as such browsers that do not support those selectors, will not function correctly.
+        The CSS checks that each value is unique in the row, in the column, and within each of 9 individual 3x3 tables. If a duplicate is found within one of those, a number which conflicts is colored red.
+    </p>  
+
+    <link rel="stylesheet" media="screen" href="sudoku.css" /> 
+
+    <h3>Empty Table</h3>
+    <div class="sudoku"> 
+
+        <input type="text" maxlength="1" class="r1 c1 t1 btop bleft" />
+        <input type="text" maxlength="1" class="r1 c2 t1 btop" />
+        <input type="text" maxlength="1" class="r1 c3 t1 btop bright" />
+        <input type="text" maxlength="1" class="r1 c4 t2 btop bleft" />
+        <input type="text" maxlength="1" class="r1 c5 t2 btop" />
+        <input type="text" maxlength="1" class="r1 c6 t2 btop bright" />
+        <input type="text" maxlength="1" class="r1 c7 t3 btop bleft" />
+        <input type="text" maxlength="1" class="r1 c8 t3 btop" />
+        <input type="text" maxlength="1" class="r1 c9 t3 btop bright" />
+
+        <input type="text" maxlength="1" class="r2 c1 t1  bleft" />
+        <input type="text" maxlength="1" class="r2 c2 t1 " />
+        <input type="text" maxlength="1" class="r2 c3 t1  bright" />
+        <input type="text" maxlength="1" class="r2 c4 t2  bleft" />
+        <input type="text" maxlength="1" class="r2 c5 t2 " />
+        <input type="text" maxlength="1" class="r2 c6 t2  bright" />
+        <input type="text" maxlength="1" class="r2 c7 t3  bleft" />
+        <input type="text" maxlength="1" class="r2 c8 t3 " />
+        <input type="text" maxlength="1" class="r2 c9 t3  bright" />
+
+        <input type="text" maxlength="1" class="r3 c1 t1 bbot bleft" />
+        <input type="text" maxlength="1" class="r3 c2 t1 bbot" />
+        <input type="text" maxlength="1" class="r3 c3 t1 bbot bright" />
+        <input type="text" maxlength="1" class="r3 c4 t2 bbot bleft" />
+        <input type="text" maxlength="1" class="r3 c5 t2 bbot" />
+        <input type="text" maxlength="1" class="r3 c6 t2 bbot bright" />
+        <input type="text" maxlength="1" class="r3 c7 t3 bbot bleft" />
+        <input type="text" maxlength="1" class="r3 c8 t3 bbot" />
+        <input type="text" maxlength="1" class="r3 c9 t3 bbot bright" />
+
+        <input type="text" maxlength="1" class="r4 c1 t4 btop bleft" />
+        <input type="text" maxlength="1" class="r4 c2 t4 btop" />
+        <input type="text" maxlength="1" class="r4 c3 t4 btop bright" />
+        <input type="text" maxlength="1" class="r4 c4 t5 btop bleft" />
+        <input type="text" maxlength="1" class="r4 c5 t5 btop" />
+        <input type="text" maxlength="1" class="r4 c6 t5 btop bright" />
+        <input type="text" maxlength="1" class="r4 c7 t6 btop bleft" />
+        <input type="text" maxlength="1" class="r4 c8 t6 btop" />
+        <input type="text" maxlength="1" class="r4 c9 t6 btop bright" />
+
+        <input type="text" maxlength="1" class="r5 c1 t4  bleft" />
+        <input type="text" maxlength="1" class="r5 c2 t4 " />
+        <input type="text" maxlength="1" class="r5 c3 t4  bright" />
+        <input type="text" maxlength="1" class="r5 c4 t5  bleft" />
+        <input type="text" maxlength="1" class="r5 c5 t5 " />
+        <input type="text" maxlength="1" class="r5 c6 t5  bright" />
+        <input type="text" maxlength="1" class="r5 c7 t6  bleft" />
+        <input type="text" maxlength="1" class="r5 c8 t6 " />
+        <input type="text" maxlength="1" class="r5 c9 t6  bright" />
+
+        <input type="text" maxlength="1" class="r6 c1 t4 bbot bleft" />
+        <input type="text" maxlength="1" class="r6 c2 t4 bbot" />
+        <input type="text" maxlength="1" class="r6 c3 t4 bbot bright" />
+        <input type="text" maxlength="1" class="r6 c4 t5 bbot bleft" />
+        <input type="text" maxlength="1" class="r6 c5 t5 bbot" />
+        <input type="text" maxlength="1" class="r6 c6 t5 bbot bright" />
+        <input type="text" maxlength="1" class="r6 c7 t6 bbot bleft" />
+        <input type="text" maxlength="1" class="r6 c8 t6 bbot" />
+        <input type="text" maxlength="1" class="r6 c9 t6 bbot bright" />
+
+        <input type="text" maxlength="1" class="r7 c1 t7 btop bleft" />
+        <input type="text" maxlength="1" class="r7 c2 t7 btop" />
+        <input type="text" maxlength="1" class="r7 c3 t7 btop bright" />
+        <input type="text" maxlength="1" class="r7 c4 t8 btop bleft" />
+        <input type="text" maxlength="1" class="r7 c5 t8 btop" />
+        <input type="text" maxlength="1" class="r7 c6 t8 btop bright" />
+        <input type="text" maxlength="1" class="r7 c7 t9 btop bleft" />
+        <input type="text" maxlength="1" class="r7 c8 t9 btop" />
+        <input type="text" maxlength="1" class="r7 c9 t9 btop bright" />
+
+        <input type="text" maxlength="1" class="r8 c1 t7  bleft" />
+        <input type="text" maxlength="1" class="r8 c2 t7 " />
+        <input type="text" maxlength="1" class="r8 c3 t7  bright" />
+        <input type="text" maxlength="1" class="r8 c4 t8  bleft" />
+        <input type="text" maxlength="1" class="r8 c5 t8 " />
+        <input type="text" maxlength="1" class="r8 c6 t8  bright" />
+        <input type="text" maxlength="1" class="r8 c7 t9  bleft" />
+        <input type="text" maxlength="1" class="r8 c8 t9 " />
+        <input type="text" maxlength="1" class="r8 c9 t9  bright" />
+
+        <input type="text" maxlength="1" class="r9 c1 t7 bbot bleft" />
+        <input type="text" maxlength="1" class="r9 c2 t7 bbot" />
+        <input type="text" maxlength="1" class="r9 c3 t7 bbot bright" />
+        <input type="text" maxlength="1" class="r9 c4 t8 bbot bleft" />
+        <input type="text" maxlength="1" class="r9 c5 t8 bbot" />
+        <input type="text" maxlength="1" class="r9 c6 t8 bbot bright" />
+        <input type="text" maxlength="1" class="r9 c7 t9 bbot bleft" />
+        <input type="text" maxlength="1" class="r9 c8 t9 bbot" />
+        <input type="text" maxlength="1" class="r9 c9 t9 bbot bright" /> 
+
+    </div>
+</div>
+<div class="container">
+    <h3>Prefilled table #1</h3>
+    <div class="sudoku"> 
+
+        <input type="text" maxlength="1" value="5" disabled class="r1 c1 t1 btop bleft" />
+        <input type="text" maxlength="1" class="r1 c2 t1 btop" />
+        <input type="text" maxlength="1" value="6" disabled class="r1 c3 t1 btop bright" />
+        <input type="text" maxlength="1" class="r1 c4 t2 btop bleft" />
+        <input type="text" maxlength="1" class="r1 c5 t2 btop" />
+        <input type="text" maxlength="1" class="r1 c6 t2 btop bright" />
+        <input type="text" maxlength="1" class="r1 c7 t3 btop bleft" />
+        <input type="text" maxlength="1" class="r1 c8 t3 btop" />
+        <input type="text" maxlength="1" class="r1 c9 t3 btop bright" />
+
+        <input type="text" maxlength="1" class="r2 c1 t1  bleft" />
+        <input type="text" maxlength="1" class="r2 c2 t1 " />
+        <input type="text" maxlength="1" class="r2 c3 t1  bright" />
+        <input type="text" maxlength="1" class="r2 c4 t2  bleft" />
+        <input type="text" maxlength="1" class="r2 c5 t2 " />
+        <input type="text" maxlength="1" class="r2 c6 t2  bright" value="2" disabled />
+        <input type="text" maxlength="1" class="r2 c7 t3  bleft" value="9" disabled />
+        <input type="text" maxlength="1" class="r2 c8 t3 " />
+        <input type="text" maxlength="1" class="r2 c9 t3  bright" />
+
+        <input type="text" maxlength="1" class="r3 c1 t1 bbot bleft" />
+        <input type="text" maxlength="1" class="r3 c2 t1 bbot" />
+        <input type="text" maxlength="1" class="r3 c3 t1 bbot bright" />
+        <input type="text" maxlength="1" class="r3 c4 t2 bbot bleft" />
+        <input type="text" maxlength="1" class="r3 c5 t2 bbot" />
+        <input type="text" maxlength="1" class="r3 c6 t2 bbot bright" />
+        <input type="text" maxlength="1" class="r3 c7 t3 bbot bleft" />
+        <input type="text" maxlength="1" class="r3 c8 t3 bbot" />
+        <input type="text" maxlength="1" class="r3 c9 t3 bbot bright" />
+
+        <input type="text" maxlength="1" class="r4 c1 t4 btop bleft" />
+        <input type="text" maxlength="1" class="r4 c2 t4 btop" value="1" disabled />
+        <input type="text" maxlength="1" class="r4 c3 t4 btop bright" />
+        <input type="text" maxlength="1" class="r4 c4 t5 btop bleft" value="7" disabled />
+        <input type="text" maxlength="1" class="r4 c5 t5 btop" />
+        <input type="text" maxlength="1" class="r4 c6 t5 btop bright" value="9" disabled />
+        <input type="text" maxlength="1" class="r4 c7 t6 btop bleft" />
+        <input type="text" maxlength="1" class="r4 c8 t6 btop" value="6" disabled />
+        <input type="text" maxlength="1" class="r4 c9 t6 btop bright" value="4" disabled />
+
+        <input type="text" maxlength="1" class="r5 c1 t4  bleft" value="7" disabled />
+        <input type="text" maxlength="1" class="r5 c2 t4 " />
+        <input type="text" maxlength="1" class="r5 c3 t4  bright" />
+        <input type="text" maxlength="1" class="r5 c4 t5  bleft" />
+        <input type="text" maxlength="1" class="r5 c5 t5 " value="5" disabled />
+        <input type="text" maxlength="1" class="r5 c6 t5  bright" value="8" disabled />
+        <input type="text" maxlength="1" class="r5 c7 t6  bleft" />
+        <input type="text" maxlength="1" class="r5 c8 t6 " value="1" disabled />
+        <input type="text" maxlength="1" class="r5 c9 t6  bright" />
+
+        <input type="text" maxlength="1" class="r6 c1 t4 bbot bleft" />
+        <input type="text" maxlength="1" class="r6 c2 t4 bbot" />
+        <input type="text" maxlength="1" class="r6 c3 t4 bbot bright" value="4" disabled />
+        <input type="text" maxlength="1" class="r6 c4 t5 bbot bleft" />
+        <input type="text" maxlength="1" class="r6 c5 t5 bbot"  value="2" disabled/>
+        <input type="text" maxlength="1" class="r6 c6 t5 bbot bright" />
+        <input type="text" maxlength="1" class="r6 c7 t6 bbot bleft" />
+        <input type="text" maxlength="1" class="r6 c8 t6 bbot" />
+        <input type="text" maxlength="1" class="r6 c9 t6 bbot bright" value="9" disabled />
+
+        <input type="text" maxlength="1" class="r7 c1 t7 btop bleft" />
+        <input type="text" maxlength="1" class="r7 c2 t7 btop" />
+        <input type="text" maxlength="1" class="r7 c3 t7 btop bright"  value="7" disabled />
+        <input type="text" maxlength="1" class="r7 c4 t8 btop bleft" />
+        <input type="text" maxlength="1" class="r7 c5 t8 btop" />
+        <input type="text" maxlength="1" class="r7 c6 t8 btop bright"  value="6" disabled />
+        <input type="text" maxlength="1" class="r7 c7 t9 btop bleft" />
+        <input type="text" maxlength="1" class="r7 c8 t9 btop" />
+        <input type="text" maxlength="1" class="r7 c9 t9 btop bright" value="1" disabled />
+
+        <input type="text" maxlength="1" class="r8 c1 t7  bleft" />
+        <input type="text" maxlength="1" class="r8 c2 t7 " value="4" disabled />
+        <input type="text" maxlength="1" class="r8 c3 t7  bright" />
+        <input type="text" maxlength="1" class="r8 c4 t8  bleft" value="1" disabled />
+        <input type="text" maxlength="1" class="r8 c5 t8 " />
+        <input type="text" maxlength="1" class="r8 c6 t8  bright" value="7" disabled />
+        <input type="text" maxlength="1" class="r8 c7 t9  bleft" />
+        <input type="text" maxlength="1" class="r8 c8 t9 " />
+        <input type="text" maxlength="1" class="r8 c9 t9  bright" value="2" disabled />
+
+        <input type="text" maxlength="1" class="r9 c1 t7 bbot bleft" />
+        <input type="text" maxlength="1" class="r9 c2 t7 bbot" />
+        <input type="text" maxlength="1" class="r9 c3 t7 bbot bright"  value="1" disabled />
+        <input type="text" maxlength="1" class="r9 c4 t8 bbot bleft" value="2" disabled />
+        <input type="text" maxlength="1" class="r9 c5 t8 bbot" />
+        <input type="text" maxlength="1" class="r9 c6 t8 bbot bright" />
+        <input type="text" maxlength="1" class="r9 c7 t9 bbot bleft" value="8" disabled />
+        <input type="text" maxlength="1" class="r9 c8 t9 bbot" value="7" disabled />
+        <input type="text" maxlength="1" class="r9 c9 t9 bbot bright" /> 
+
+    </div>
+</div>
+<div class="container">
+
+    <h3>Prefilled table #2</h3>
+
+    <div class="sudoku"> 
+
+        <input type="text" maxlength="1" class="r1 c1 t1 btop bleft" />
+        <input type="text" maxlength="1" class="r1 c2 t1 btop" value="5" disabled />
+        <input type="text" maxlength="1" class="r1 c3 t1 btop bright" value="8" disabled />
+        <input type="text" maxlength="1" class="r1 c4 t2 btop bleft" />
+        <input type="text" maxlength="1" class="r1 c5 t2 btop" />
+        <input type="text" maxlength="1" class="r1 c6 t2 btop bright" />
+        <input type="text" maxlength="1" class="r1 c7 t3 btop bleft" />
+        <input type="text" maxlength="1" class="r1 c8 t3 btop" value="2" disabled />
+        <input type="text" maxlength="1" class="r1 c9 t3 btop bright" />
+
+        <input type="text" maxlength="1" class="r2 c1 t1  bleft" />
+        <input type="text" maxlength="1" class="r2 c2 t1 " />
+        <input type="text" maxlength="1" class="r2 c3 t1  bright" value="7" disabled />
+        <input type="text" maxlength="1" class="r2 c4 t2  bleft" />
+        <input type="text" maxlength="1" class="r2 c5 t2 " />
+        <input type="text" maxlength="1" class="r2 c6 t2  bright" />
+        <input type="text" maxlength="1" class="r2 c7 t3  bleft" />
+        <input type="text" maxlength="1" class="r2 c8 t3 " />
+        <input type="text" maxlength="1" class="r2 c9 t3  bright" value="8" disabled />
+
+        <input type="text" maxlength="1" class="r3 c1 t1 bbot bleft" />
+        <input type="text" maxlength="1" class="r3 c2 t1 bbot" value="2" disabled />
+        <input type="text" maxlength="1" class="r3 c3 t1 bbot bright" />
+        <input type="text" maxlength="1" class="r3 c4 t2 bbot bleft" />
+        <input type="text" maxlength="1" class="r3 c5 t2 bbot" />
+        <input type="text" maxlength="1" class="r3 c6 t2 bbot bright" value="3" disabled />
+        <input type="text" maxlength="1" class="r3 c7 t3 bbot bleft" />
+        <input type="text" maxlength="1" class="r3 c8 t3 bbot" />
+        <input type="text" maxlength="1" class="r3 c9 t3 bbot bright" />
+
+        <input type="text" maxlength="1" class="r4 c1 t4 btop bleft" />
+        <input type="text" maxlength="1" class="r4 c2 t4 btop" />
+        <input type="text" maxlength="1" class="r4 c3 t4 btop bright" />
+        <input type="text" maxlength="1" class="r4 c4 t5 btop bleft" />
+        <input type="text" maxlength="1" class="r4 c5 t5 btop" value="9" disabled />
+        <input type="text" maxlength="1" class="r4 c6 t5 btop bright" />
+        <input type="text" maxlength="1" class="r4 c7 t6 btop bleft" />
+        <input type="text" maxlength="1" class="r4 c8 t6 btop" />
+        <input type="text" maxlength="1" class="r4 c9 t6 btop bright" value="1" disabled />
+
+        <input type="text" maxlength="1" class="r5 c1 t4  bleft" />
+        <input type="text" maxlength="1" class="r5 c2 t4 " value="8" disabled />
+        <input type="text" maxlength="1" class="r5 c3 t4  bright" value="1" disabled />
+        <input type="text" maxlength="1" class="r5 c4 t5  bleft" />
+        <input type="text" maxlength="1" class="r5 c5 t5 " value="7" disabled />
+        <input type="text" maxlength="1" class="r5 c6 t5  bright" />
+        <input type="text" maxlength="1" class="r5 c7 t6  bleft" />
+        <input type="text" maxlength="1" class="r5 c8 t6 " />
+        <input type="text" maxlength="1" class="r5 c9 t6  bright" value="6" disabled />
+
+        <input type="text" maxlength="1" class="r6 c1 t4 bbot bleft" />
+        <input type="text" maxlength="1" class="r6 c2 t4 bbot" value="3" disabled />
+        <input type="text" maxlength="1" class="r6 c3 t4 bbot bright" />
+        <input type="text" maxlength="1" class="r6 c4 t5 bbot bleft" />
+        <input type="text" maxlength="1" class="r6 c5 t5 bbot" />
+        <input type="text" maxlength="1" class="r6 c6 t5 bbot bright" value="5" disabled />
+        <input type="text" maxlength="1" class="r6 c7 t6 bbot bleft" />
+        <input type="text" maxlength="1" class="r6 c8 t6 bbot" value="7" disabled />
+        <input type="text" maxlength="1" class="r6 c9 t6 bbot bright" />
+
+        <input type="text" maxlength="1" class="r7 c1 t7 btop bleft" />
+        <input type="text" maxlength="1" class="r7 c2 t7 btop" />
+        <input type="text" maxlength="1" class="r7 c3 t7 btop bright" />
+        <input type="text" maxlength="1" class="r7 c4 t8 btop bleft" />
+        <input type="text" maxlength="1" class="r7 c5 t8 btop" />
+        <input type="text" maxlength="1" class="r7 c6 t8 btop bright" value="2" disabled />
+        <input type="text" maxlength="1" class="r7 c7 t9 btop bleft" value="3" disabled />
+        <input type="text" maxlength="1" class="r7 c8 t9 btop" value="1" disabled />
+        <input type="text" maxlength="1" class="r7 c9 t9 btop bright" value="5" disabled />
+
+        <input type="text" maxlength="1" class="r8 c1 t7  bleft" />
+        <input type="text" maxlength="1" class="r8 c2 t7 " />
+        <input type="text" maxlength="1" class="r8 c3 t7  bright" />
+        <input type="text" maxlength="1" class="r8 c4 t8  bleft" />
+        <input type="text" maxlength="1" class="r8 c5 t8 " />
+        <input type="text" maxlength="1" class="r8 c6 t8  bright" />
+        <input type="text" maxlength="1" class="r8 c7 t9  bleft" value="8" disabled />
+        <input type="text" maxlength="1" class="r8 c8 t9 " />
+        <input type="text" maxlength="1" class="r8 c9 t9  bright" />
+
+        <input type="text" maxlength="1" class="r9 c1 t7 bbot bleft" />
+        <input type="text" maxlength="1" class="r9 c2 t7 bbot" value="7" disabled />
+        <input type="text" maxlength="1" class="r9 c3 t7 bbot bright" />
+        <input type="text" maxlength="1" class="r9 c4 t8 bbot bleft" value="5" disabled />
+        <input type="text" maxlength="1" class="r9 c5 t8 bbot" />
+        <input type="text" maxlength="1" class="r9 c6 t8 bbot bright" />
+        <input type="text" maxlength="1" class="r9 c7 t9 bbot bleft" />
+        <input type="text" maxlength="1" class="r9 c8 t9 bbot" />
+        <input type="text" maxlength="1" class="r9 c9 t9 bbot bright" /> 
+
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        var func = function(e){
+            var target = e.srcElement || e.target;
+            if (target.nodeName === "INPUT"){
+                target.setAttribute("value", target.value); 
+            }
+        };
+            
+        for (var i = 0, el = document.getElementsByClassName("sudoku"), len = el.length; i < len; i++){
+            el[i].addEventListener("change", func, false);
+            el[i].addEventListener("keyup", func, false);
+        }
+            
+
+    </script>
+
+</div>
+<footer>
+    <div class="container">
+        <div class="profile">
+            <h3>Niklas von Hertzen<span>hertzen.com</span></h3>
+            <a href="https://twitter.com/niklasvh"><img src="/base/img/twitter.png" alt="Twitter" /></a>
+            <a href="https://plus.google.com/115030581977322198102/posts"><img src="/base/img/google-plus-black.png" alt="Google+" /></a>
+           <a href="https://facebook.com/vonhertzen"><img src="/base/img/facebook.png" alt="Facebook" /></a>
+           <a href="https://github.com/niklasvh"><img src="/base/img/github.png" alt="Github" /></a>
+           <a href="http://fi.linkedin.com/pub/niklas-von-hertzen/16/522/5ab"><img src="/base/img/linkedin.png" alt="LinkedIn" /></a>
+        </div>
+    </div>
+
+</footer>
+
+<script>
+
+    // google analytics         
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-188600-10']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();   
+    // twitter         
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // google plus
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+
+</body>
+</html>

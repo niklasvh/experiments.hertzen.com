@@ -1,0 +1,26 @@
+// http://www.microsoft.com/typography/otspec/WGL4B.HTM
+
+JSFONT.WGL4 = {
+    0: 0x0,
+    3: 0x20,
+    4: 0x21,
+    5: 0x22,
+    6: 0x23,
+    7: 0x24,
+    8: 0x25,
+    9: 0x26,
+    10: 0x27,
+    11: 0x28,
+    12: 0x29,
+    13: 0x2a,
+    14: 0x2b,
+    15: 0x2c,
+    16: 0x2d,
+    17: 0x2e,
+    18: 0x2f,
+    19: 0x30,
+    20: 0x31
+    
+        
+        
+};

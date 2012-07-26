@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>HTML in 3D</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Niklas von Hertzen">
+
+        <!-- Le styles -->
+        <link href="/base/css/bootstrap.css" rel="stylesheet">
+        <link href="/base/css/style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons 
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        -->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://hertzen.com/experiments/3dhtml/">HTML in 3D</a>
+                    <div class="nav-collapse">
+                         
+                    </div><!--/.nav-collapse -->
+
+                    <p class="navbar-text pull-right" style="padding-top:5px;margin-bottom:-5px;">
+
+
+
+                        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hertzen.com/experiments/3dhtml/"  data-count="horizontal" data-via="niklasvh">Tweet</a>
+                      
+                        <!-- Place this tag where you want the +1 button to render -->
+                        <g:plusone size="medium" annotation="inline" href="http://hertzen.com/experiments/3dhtml/" width="250"></g:plusone>
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+   
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="html2webgl.js"></script>
+<script type="text/javascript" src="three.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#thispage').click(function(){        
+            $('body').html2webgl();
+            return false;
+        });          
+    });        
+</script>
+
+<style>
+    .examples li{
+        list-style-type:none;
+        float:left; 
+        width:120px;
+        margin-bottom:10px;
+
+    }
+    
+    .examples  img {
+        border-radius: 4px;
+        border: 1px solid black;
+    }
+
+
+</style>
+
+<div class="container">
+
+    <h1>HTML in 3D</h1>
+    <p>These examples use html2canvas to create elements in 3D and render them in WebGL through THREE.js with an anaglyph renderer.
+    <h2>Examples</h2>
+
+    <ul class="examples">
+        <li><a href="examples/basic.html" title="Basic" target="_blank"><img src="images/1.jpg" alt="Basic" /></a></li>
+        <li><a href="examples/pyramid.html" title="Pyramid" target="_blank"><img src="images/2.jpg" alt="Pyramid" /></a></li>
+
+        <li><a href="examples/demo2.html" title="HTML elements" target="_blank"><img src="images/4.jpg" alt="HTML elements" /></a></li>
+
+        <li><a href="examples/demo.html" title="Basic template" target="_blank"><img src="images/3.jpg" alt="Basic template" /></a></li>
+        <li><a href="tests/dusky/index.html" title="Dusky template" target="_blank"><img src="images/8.jpg" alt="Dusky template" /></a></li>
+        <li><a href="tests/projection/index.html" title="Projection template" target="_blank"><img src="images/9.jpg" alt="Projection template" /></a></li>
+        <li><a href="tests/facing/index.html" title="Facing template" target="_blank"><img src="images/11.jpg" alt="Facing template" /></a></li>
+        <li><a href="tests/artificial/index.html" title="Artificial template" target="_blank"><img src="images/10.jpg" alt="Artificial template" /></a></li>
+        <li><a href="tests/arrangement/index.html" title="Arrangement template" target="_blank"><img src="images/5.jpg" alt="Arrangement template" /></a></li>
+        <li><a href="tests/combination/index.html" title="Combination template" target="_blank"><img src="images/6.jpg" alt="Combination template" /></a></li>
+        <li><a href="tests/palmtrees/index.html" title="Palmtrees template" target="_blank"><img src="images/7.jpg" alt="Palmtrees template" /></a></li>
+
+    </ul>
+
+
+</div>
+
+<footer>
+    <div class="container">
+        <div class="profile">
+            <h3>Niklas von Hertzen<span>hertzen.com</span></h3>
+            <a href="https://twitter.com/niklasvh"><img src="/base/img/twitter.png" alt="Twitter" /></a>
+            <a href="https://plus.google.com/115030581977322198102/posts"><img src="/base/img/google-plus-black.png" alt="Google+" /></a>
+           <a href="https://facebook.com/vonhertzen"><img src="/base/img/facebook.png" alt="Facebook" /></a>
+           <a href="https://github.com/niklasvh"><img src="/base/img/github.png" alt="Github" /></a>
+           <a href="http://fi.linkedin.com/pub/niklas-von-hertzen/16/522/5ab"><img src="/base/img/linkedin.png" alt="LinkedIn" /></a>
+        </div>
+    </div>
+
+</footer>
+
+<script>
+
+    // google analytics         
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-188600-10']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();   
+    // twitter         
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // google plus
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+
+</body>
+</html>

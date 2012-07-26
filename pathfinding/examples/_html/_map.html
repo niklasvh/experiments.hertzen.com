@@ -1,0 +1,154 @@
+
+<script type="text/javascript" src="../build/jspathfinding.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript">
+            
+    $(function(){
+             
+        var nodes = {};
+        var PathFinder = new PathFinding();
+        $('#map').load(function(){
+            var canvas = document.createElement('canvas'), ctx = canvas.getContext("2d"), w = 1500, h = 816, nodeSize = 3;
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(this, 0, 0);
+            var data = ctx.getImageData(0, 0, w, h);
+                    
+            var pos = 0;
+                    
+            for (var r = 1; r <= h; r += nodeSize){
+                        
+                for (var c = 1; c <= w; c += nodeSize){
+                    
+                    
+                    if ( data.data[pos + 2] == 221 ){
+                        if (nodes[r] === undefined){
+                            nodes[r] = {};
+                        }
+                        nodes[r][c] = PathFinder.addNode(c, r);
+                                
+                        // add vertices
+                        if (nodes[r][c-nodeSize] !== undefined){
+                            nodes[r][c].addVertex(nodes[r][c-nodeSize]);
+                        }
+                            
+                        if (nodes[r-nodeSize] !== undefined && nodes[r-nodeSize][c] !== undefined){
+                            nodes[r][c].addVertex(nodes[r-nodeSize][c]);
+                        }
+                            
+                                  
+                    }
+                            
+                    pos += 4*nodeSize;
+                            
+                }         
+                pos += 4*w*2;
+                       
+            }
+            //ctx.putImageData(data, 0, 0);
+            //    $(this).remove();
+            delete canvas;
+                    
+            var start = nodes[4][307];
+            var end = nodes[814][1495];
+                   
+                   
+            function findRoute(start, end){
+                var canvas;
+                $(".maps canvas").remove();
+                    
+                var route = PathFinder.Solver(start,end);
+                        
+                if (route === false){
+                    alert("No route found");
+                }else{
+                        
+                    canvas = document.createElement('canvas'), ctx = canvas.getContext("2d");
+                    canvas.width = w;
+                    canvas.height = h;
+                    
+                    ctx.beginPath(); 
+                    ctx.moveTo(start.x, start.y);
+                
+                    for (var r = 0, rlen = route.length; r < rlen; r++){
+                        ctx.lineTo(route[r].x,route[r].y);
+                    }
+                    $(canvas).click(function(e){
+                        var x = e.pageX - $(this).offset().left;
+                        x -= x % 3;
+                        x += 1;
+                        var y = e.pageY - $(this).offset().top;
+                        y -= y % 3;
+                        y += 1;
+                        if (nodes[y] !== undefined && nodes[y][x] !== undefined){
+                            findRoute(end, nodes[y][x]);
+                                
+                        }
+                        //  console.log(y);
+                            
+                           
+                    });
+              
+                    ctx.stroke(); 
+                    $('.maps').append(canvas);
+                }
+            }
+                    
+            findRoute(start, end);
+            // console.log(route);
+               
+                    
+        });
+                
+          
+               
+             
+               
+    });        
+</script>
+<style>
+    td{
+        width:10px;
+        height:10px;
+        border:1px solid black;
+        cursor:pointer;
+    }
+    .maps img, .maps canvas{
+        position:absolute;
+        top:0;
+        left:0;
+
+    }
+    .maps{
+        position:relative;
+        height:816px;
+        width:1500px;
+        margin:0 auto;
+    }
+</style>
+<div class="container">
+
+    <h2>Pathfinding with JavaScript</h2>
+    <p>
+        This example doesn't include any pre-computed nodes or vertices, but instead reads the image pixel by pixel (3x3) and identifies where water is present and adds nodes and vertices accordingly. 
+        The shortest path algorithm used in this example is the <a href="http://en.wikipedia.org/wiki/A*_search_algorithm">A* search algorithm</a>, which uses a best-first approach to find the most cost effective route.  
+        If there is no solution, it ends up running through all the 87,134 nodes in this map, effectively doing the same search as <a href="http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">Dijkstra's algorithm</a> does, before concluding that there is no result.
+
+    </p>
+    <p>The performance of the search could be significantly improved by pre-assigning nodes in relevant positions (like intersections in real road-networks), instead of assigning a node to every single position that is accessible. It would lower the number of nodes to traverse and inaccessible nodes wouldn't be present to begin with.
+
+
+
+    </p>
+    <p>
+
+        As this example uses canvas to create the nodes, IE 9 or higher is required. For non-canvas examples, check out <a href="../index.html">these examples</a>.
+    </p>
+</div>
+<div class="maps">
+    <img src="map.png" id="map" />
+
+</div>
+
+
+
