@@ -4,7 +4,24 @@
     <property name="js.dir" location="js"/>
     <property name="lib.dir" location="../lib"/>
 
-     <target name="3dhtml">
+
+    <target name="jsfeedback">
+        <property name="TITLE" value="feedback.js"/>
+        <property name="URL" value="http://hertzen.com/experiments/jsfeedback/"/>
+        <property name="proj.dir" value="jsfeedback" />
+        
+        <antcall target="preload" inheritRefs="true" />
+        <replaceregexp match="^(.*)$" replace="${prepend}\1${append}" flags="s">
+   
+        </replaceregexp>
+        
+        <antcall target="postload" inheritRefs="true" />
+   
+    </target>
+    
+    
+    
+    <target name="3dhtml">
         <property name="TITLE" value="HTML in 3D"/>
         <property name="URL" value="http://hertzen.com/experiments/3dhtml/"/>
         <property name="proj.dir" value="3dhtml" />
@@ -18,7 +35,7 @@
    
     </target>
 
-     <target name="webui">
+    <target name="webui">
         <property name="TITLE" value="Windows through Web Sockets"/>
         <property name="URL" value="http://hertzen.com/experiments/webui/preview/"/>
         <property name="proj.dir" value="webui/preview" />
@@ -32,7 +49,7 @@
    
     </target>
 
-     <target name="visual-blur">
+    <target name="visual-blur">
         <property name="TITLE" value="Rasterized DOM blur"/>
         <property name="URL" value="http://hertzen.com/experiments/visual-blur/"/>
         <property name="proj.dir" value="visual-blur" />
@@ -46,7 +63,7 @@
    
     </target>
 
-     <target name="pathfinding">
+    <target name="pathfinding">
         <property name="TITLE" value="JavaScript PathFinder Map example"/>
         <property name="URL" value="http://hertzen.com/experiments/pathfinding/examples/map.html"/>
         <property name="proj.dir" value="pathfinding/examples" />
@@ -61,7 +78,7 @@
     </target>
 
 
-     <target name="jsfont">
+    <target name="jsfont">
         <property name="TITLE" value="Modifying font files with JavaScript"/>
         <property name="URL" value="http://hertzen.com/experiments/jsfont/"/>
         <property name="proj.dir" value="jsfont" />
@@ -75,7 +92,7 @@
    
     </target>
 
-     <target name="css3sudoku">
+    <target name="css3sudoku">
         <property name="TITLE" value="CSS3 Sudoku solution solver"/>
         <property name="URL" value="http://www.hertzen.com/experiments/css3sudoku/"/>
         <property name="proj.dir" value="css3sudoku" />
@@ -83,8 +100,8 @@
         <antcall target="preload" inheritRefs="true" />
         <replaceregexp match="^(.*)$" replace="${prepend}\1${append}" flags="s">
             <fileset dir="${proj.dir}" includes="*.html">
-                 <exclude name="index.html"/>
-                </fileset>
+                <exclude name="index.html"/>
+            </fileset>
         </replaceregexp>
         
         <antcall target="postload" inheritRefs="true" />
@@ -100,12 +117,27 @@
         <antcall target="preload" inheritRefs="true" />
         <replaceregexp match="^(.*)$" replace="${prepend}\1${append}" flags="s">
             <fileset dir="${proj.dir}" includes="*.html">
-                 <exclude name="index.html"/>
-                </fileset>
+                <exclude name="index.html"/>
+            </fileset>
         </replaceregexp>
         
         <antcall target="postload" inheritRefs="true" />
    
+    </target>
+
+    <target name="css-shaders">
+        <property name="TITLE" value="CSS Shaders with WebGL"/>
+        <property name="URL" value="http://experiments.hertzen.com/css-shaders/"/>
+        <property name="proj.dir" value="css-shaders" />
+        
+        <antcall target="preload" inheritRefs="true" />
+        <replaceregexp match="^(.*)$" replace="${prepend}\1${append}" flags="s"></replaceregexp>
+        
+        <antcall target="postload" inheritRefs="true" />
+        
+
+
+        
     </target>
 
 
@@ -120,8 +152,8 @@
         <antcall target="preload" inheritRefs="true" />
         <replaceregexp match="^(.*)$" replace="${prepend}\1${append}" flags="s">
             <fileset dir="${proj.dir}" includes="*.html">
-                 <exclude name="index.html"/>
-                </fileset>
+                <exclude name="index.html"/>
+            </fileset>
         </replaceregexp>
         
         <antcall target="postload" inheritRefs="true" />
@@ -177,10 +209,6 @@
     </target>
   
     
-
-
-    
-
 
     <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
            classpath="${lib.dir}/compiler.jar" onerror="report"/>

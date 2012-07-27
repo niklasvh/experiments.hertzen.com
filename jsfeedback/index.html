@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>feedback.js</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Niklas von Hertzen">
+
+        <!-- Le styles -->
+        <link href="/base/css/bootstrap.css" rel="stylesheet">
+        <link href="/base/css/style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+        
+        <meta property="og:type" content="blog" />
+        <meta property="og:title" content="feedback.js" />
+        <meta property="og:url" content="http://hertzen.com/experiments/jsfeedback/" />
+        <meta property="og:site_name" content="Niklas von Hertzen" />
+        <meta property="fb:admins" content="516961119" />
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons 
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        -->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+
+                    <a class="brand" href="http://hertzen.com/experiments/jsfeedback/">feedback.js</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+    <li><a href="index.html">Introduction</a></li>
+    <li><a href="https://github.com/niklasvh/feedback.js">Source code</a></li>
+</ul>
+                    </div><!--/.nav-collapse -->
+
+                    <div class="navbar-text pull-right" style="position:absolute;padding-top:5px;margin-bottom:-5px; margin-left:600px;">
+
+                        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hertzen.com/experiments/jsfeedback/"  data-count="horizontal" data-via="niklasvh">Tweet</a>
+
+                        <div style="margin-top:-3px;float:left;"><div class="fb-like" data-href="http://hertzen.com/experiments/jsfeedback/" data-send="false" data-layout="button_count" data-width="60" data-show-faces="true" data-font="arial"></div></div>
+
+
+                        <g:plusone size="medium" annotation="inline" href="http://hertzen.com/experiments/jsfeedback/" width="250"></g:plusone>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+<div class="container">
+    <h1>feedback.js - Feedback form with screenshot</h1>
+
+    <p>
+        This script allows you to create feedback forms which include a screenshot, created on the clients browser, along with the form. 
+        The screenshot is based on the DOM and as such may not be 100% accurate to the real representation as it does not make an actual screenshot, but builds the screenshot based on the information available on the page.
+
+    </p>
+
+
+    <h2>How does it work?</h2>
+    <p>
+        The script is based on the <a href="http://html2canvas.hertzen.com/">html2canvas</a> script I created, which renders the current page as a canvas image, by reading the DOM and the different styles applied to the elements. 
+        This script adds the options for the user to draw elements on top of that image, such as mark points of interest on the image along with the feedback they send.
+    </p> 
+    <p>     
+        It does <b>not require any rendering from the server</b>, as the whole image is created on the <b>clients browser</b>. 
+        The <a href="http://html2canvas.hertzen.com/">html2canvas</a> script itself is still in a very experimental state, as it does not parse nearly as much of the CSS3 attributes I would want it to, nor does it have any support to load CORS images even if a proxy was available.  
+    </p>
+
+    <p>No plugins, no flash, no interaction needed from the server, just pure JavaScript!</p>
+
+    <h2>Browser compatibility</h2>
+    <ul>
+        <li>Firefox 3.5+</li>
+        <li>Newer versions of Google Chrome, Safari & Opera</li>
+        <li>IE9</li> 
+    </ul>
+
+    <h2>Examples</h2>
+
+    <style>
+        .examples li{
+            list-style-type:none;
+            float:left; 
+            width:120px;
+            margin-bottom:10px;
+
+        }
+
+        .examples  img {
+            border-radius: 4px;
+            border: 1px solid black;
+        }
+
+
+    </style>
+    <ul class="examples">
+
+        <li><a href="examples/example.html" title="Basic" target="_blank"><img src="images/1.jpg" alt="Basic" /></a></li>
+
+        <li><a href="examples/dusky/index.html" title="Dusky template" target="_blank"><img src="images/8.jpg" alt="Dusky template" /></a></li>
+        <li><a href="examples/combination/index.html" title="Combination template" target="_blank"><img src="images/6.jpg" alt="Combination template" /></a></li>               
+        <li><a href="examples/projection/index.html" title="Projection template" target="_blank"><img src="images/9.jpg" alt="Projection template" /></a></li>
+        <li><a href="examples/facing/index.html" title="Facing template" target="_blank"><img src="images/11.jpg" alt="Facing template" /></a></li>
+
+        <li><a href="examples/palmtrees/index.html" title="Palmtrees template" target="_blank"><img src="images/7.jpg" alt="Palmtrees template" /></a></li>
+        <li><a href="examples/artificial/index.html" title="Artificial template" target="_blank"><img src="images/10.jpg" alt="Artificial template" /></a></li>
+
+    </ul><div style="clear:both;"></div>
+    <p>Click the <b>Send Feedback</b> located at the bottom right of the screen to test the script. Any <a href="http://www.twitter.com/niklasvh">comments or feedback</a> is greatly appreciated.</p>
+</div>
+
+<link href="base.css" rel="stylesheet">
+
+<script src="libs/feedback.js"></script>
+<script src="/base/js/domready.js" type="application/javascript"></script>
+<script type="application/javascript">
+    DomReady.ready(function() {
+    Feedback.init();
+    });
+</script>
+<footer>
+    <div class="container">
+        <div class="profile">
+            <h3>Niklas von Hertzen<span>hertzen.com</span></h3>
+            <a href="https://twitter.com/niklasvh"><img src="/base/img/twitter.png" alt="Twitter" /></a>
+            <a href="https://plus.google.com/115030581977322198102/posts"><img src="/base/img/google-plus-black.png" alt="Google+" /></a>
+            <a href="https://facebook.com/vonhertzen"><img src="/base/img/facebook.png" alt="Facebook" /></a>
+            <a href="https://github.com/niklasvh"><img src="/base/img/github.png" alt="Github" /></a>
+            <a href="http://fi.linkedin.com/pub/niklas-von-hertzen/16/522/5ab"><img src="/base/img/linkedin.png" alt="LinkedIn" /></a>
+        </div>
+    </div>
+
+</footer>
+
+
+<div id="fb-root"></div>
+<script>
+    
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=184221944970212";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // google analytics         
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-188600-10']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();   
+    // twitter         
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // google plus
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+
+</body>
+</html>
