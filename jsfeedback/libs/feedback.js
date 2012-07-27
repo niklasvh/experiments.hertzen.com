@@ -531,15 +531,21 @@
                             
                             items.forEach( function( item ) {
                                 var bounds = getBounds( item );
-                                ctx.moveTo(bounds.left + radius, bounds.top);
-                                ctx.lineTo(bounds.left + bounds.width - radius, bounds.top);
-                                ctx.quadraticCurveTo(bounds.left + bounds.width, bounds.top, bounds.left + bounds.width, bounds.top + radius);
-                                ctx.lineTo(bounds.left + bounds.width, bounds.top + bounds.height - radius);
-                                ctx.quadraticCurveTo(bounds.left + bounds.width, bounds.top + bounds.height, bounds.left + bounds.width - radius, bounds.top + bounds.height);
-                                ctx.lineTo(bounds.left + radius, bounds.top + bounds.height);
-                                ctx.quadraticCurveTo(bounds.left, bounds.top + bounds.height, bounds.left, bounds.top + bounds.height - radius);
-                                ctx.lineTo(bounds.left, bounds.top + radius);
-                                ctx.quadraticCurveTo(bounds.left, bounds.top, bounds.left + radius, bounds.top);
+                                
+                                var x = parseInt(item.style.left, 10),
+                                y = parseInt(item.style.top, 10),
+                                width = parseInt(item.style.width, 10),
+                                height = parseInt(item.style.height, 10);
+                                
+                                ctx.moveTo(x + radius, y);
+                                ctx.lineTo(x + width - radius, y);
+                                ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+                                ctx.lineTo(x + width, y + height - radius);
+                                ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                                ctx.lineTo(x + radius, y + height);
+                                ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+                                ctx.lineTo(x, y + radius);
+                                ctx.quadraticCurveTo(x, y, x + radius, y);
                                 body.removeChild( item );
                             
                             });
