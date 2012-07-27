@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Text selection animation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Niklas von Hertzen">
+
+        <!-- Le styles -->
+        <link href="/base/css/bootstrap.css" rel="stylesheet">
+        <link href="/base/css/style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+        
+        <meta property="og:type" content="blog" />
+        <meta property="og:title" content="Text selection animation" />
+        <meta property="og:url" content="http://experiments.hertzen.com/textanimation/" />
+        <meta property="og:site_name" content="Niklas von Hertzen" />
+        <meta property="fb:admins" content="516961119" />
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons 
+        <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        -->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+
+                    <a class="brand" href="http://experiments.hertzen.com/textanimation/">Text selection animation</a>
+                    <div class="nav-collapse">
+                         
+                    </div><!--/.nav-collapse -->
+
+                    <div class="navbar-text pull-right" style="position:absolute;padding-top:5px;margin-bottom:-5px; margin-left:600px;">
+
+                        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://experiments.hertzen.com/textanimation/"  data-count="horizontal" data-via="niklasvh">Tweet</a>
+
+                        <div style="margin-top:-3px;float:left;"><div class="fb-like" data-href="http://experiments.hertzen.com/textanimation/" data-send="false" data-layout="button_count" data-width="60" data-show-faces="true" data-font="arial"></div></div>
+
+
+                        <g:plusone size="medium" annotation="inline" href="http://experiments.hertzen.com/textanimation/" width="250"></g:plusone>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+<div class="container">
+    <p>Multi-range text selections, currently only supported in Firefox.</p>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var t = $('#t').empty();
+            var s = $('<span />');
+            var d = $('<div />').css('clear','both');
+            var rows = 40;
+            var columns = 50;
+            var animation = 0;
+            //window.setInterval(function(){
+            var t = $('#t').empty();
+               
+            for (var r = 0; r<rows;r++){
+                var v = "";
+                
+                for (var c = 0; c<columns;c++){    
+                   
+                        
+                    v = v + String.fromCharCode(Math.floor(Math.random()*25)+65);
+                     
+                    //  $(t).append($(s).clone().text(v));
+                }
+                $(d).clone().text(v).appendTo(t);
+                //$(t).append($(d).clone());
+            }   
+            animation++;
+            if (animation>columns){
+                animation = 0;
+            }
+         
+                
+            var mask = [
+                [0,0,0,0,0,1,0,0,0,0,0,0],  
+                [0,0,0,0,1,1,0,0,0,0,0,0],  
+                [0,0,0,1,1,1,0,0,0,0,0,0],
+                [0,0,1,1,1,1,1,1,1,1,1,1],
+                [0,1,1,1,1,1,1,1,1,1,1,1],
+                [1,1,1,1,1,1,1,1,1,1,1,1],
+                [0,1,1,1,1,1,1,1,1,1,1,1],
+                [0,0,1,1,1,1,1,1,1,1,1,1],
+                [0,0,0,1,1,1,0,0,0,0,0,0],
+                [0,0,0,0,1,1,0,0,0,0,0,0],  
+                [0,0,0,0,0,1,0,0,0,0,0,0] 
+                    
+            ];
+                
+            var positions = [
+                [14,2],
+                [2,12],
+                [26,12]
+                    
+            ];
+                
+            var overallColumn = 5;
+                
+            window.setInterval(function(){
+           
+                var s = window.getSelection();
+                s.removeAllRanges();
+                
+                $.each(positions,function(i,e){
+                    var row = e[0];
+                    var column = overallColumn+e[1];
+                      
+                            
+                        
+                
+                
+                    $.each(mask,function(maskRow,maskRowContent){
+                        $.each(maskRowContent,function(maskColumn,curr){
+                            if (curr){
+                            
+                                var therow = Math.round(row+maskRow);
+                                var div = $('#t div:nth-child('+therow+')');
+                            
+                                var tmpr = div[0].childNodes[0];
+                            
+                                var rangeAppend = document.createRange();
+                                var start = column+maskColumn;
+                                //console.log(therow+"-"+start); 
+                                if (start>=0){
+                                    rangeAppend.setStart(tmpr,start);
+                                    rangeAppend.setEnd(tmpr, start+1);
+
+                                    s.addRange(rangeAppend);
+                                }else{
+                                    rangeAppend.setStart(tmpr,start+columns);
+                                    rangeAppend.setEnd(tmpr, start+1+columns);
+
+                                    s.addRange(rangeAppend);              
+                                }
+                            }                 
+                        });           
+                    });     
+                        
+                       
+                    
+                });
+
+
+
+              
+                     
+                overallColumn--;
+                if (Math.abs(overallColumn)==columns){
+                    overallColumn = 0;
+                }
+            },100);
+    
+            
+        });        
+    </script>
+    <style>
+        #t{
+            margin:0 auto;
+            width:800px;
+            height:640px;
+            border:1px solid #000;
+            font-family:"Courier New";
+            line-height:16px;
+            letter-spacing:6px;
+
+            font-size:16px;
+        }
+
+    </style>
+
+    <div id="t"></div>
+
+</div>
+<footer>
+    <div class="container">
+        <div class="profile">
+            <h3>Niklas von Hertzen<span>hertzen.com</span></h3>
+            <a href="https://twitter.com/niklasvh"><img src="/base/img/twitter.png" alt="Twitter" /></a>
+            <a href="https://plus.google.com/115030581977322198102/posts"><img src="/base/img/google-plus-black.png" alt="Google+" /></a>
+            <a href="https://facebook.com/vonhertzen"><img src="/base/img/facebook.png" alt="Facebook" /></a>
+            <a href="https://github.com/niklasvh"><img src="/base/img/github.png" alt="Github" /></a>
+            <a href="http://fi.linkedin.com/pub/niklas-von-hertzen/16/522/5ab"><img src="/base/img/linkedin.png" alt="LinkedIn" /></a>
+        </div>
+    </div>
+
+</footer>
+
+
+<div id="fb-root"></div>
+<script>
+    
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=184221944970212";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // google analytics         
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-188600-10']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();   
+    // twitter         
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    // google plus
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+
+</body>
+</html>

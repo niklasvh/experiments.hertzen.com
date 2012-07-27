@@ -1,0 +1,133 @@
+<div class="container">
+    <p>Multi-range text selections, currently only supported in Firefox.</p>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var t = $('#t').empty();
+            var s = $('<span />');
+            var d = $('<div />').css('clear','both');
+            var rows = 40;
+            var columns = 50;
+            var animation = 0;
+            //window.setInterval(function(){
+            var t = $('#t').empty();
+               
+            for (var r = 0; r<rows;r++){
+                var v = "";
+                
+                for (var c = 0; c<columns;c++){    
+                   
+                        
+                    v = v + String.fromCharCode(Math.floor(Math.random()*25)+65);
+                     
+                    //  $(t).append($(s).clone().text(v));
+                }
+                $(d).clone().text(v).appendTo(t);
+                //$(t).append($(d).clone());
+            }   
+            animation++;
+            if (animation>columns){
+                animation = 0;
+            }
+         
+                
+            var mask = [
+                [0,0,0,0,0,1,0,0,0,0,0,0],  
+                [0,0,0,0,1,1,0,0,0,0,0,0],  
+                [0,0,0,1,1,1,0,0,0,0,0,0],
+                [0,0,1,1,1,1,1,1,1,1,1,1],
+                [0,1,1,1,1,1,1,1,1,1,1,1],
+                [1,1,1,1,1,1,1,1,1,1,1,1],
+                [0,1,1,1,1,1,1,1,1,1,1,1],
+                [0,0,1,1,1,1,1,1,1,1,1,1],
+                [0,0,0,1,1,1,0,0,0,0,0,0],
+                [0,0,0,0,1,1,0,0,0,0,0,0],  
+                [0,0,0,0,0,1,0,0,0,0,0,0] 
+                    
+            ];
+                
+            var positions = [
+                [14,2],
+                [2,12],
+                [26,12]
+                    
+            ];
+                
+            var overallColumn = 5;
+                
+            window.setInterval(function(){
+           
+                var s = window.getSelection();
+                s.removeAllRanges();
+                
+                $.each(positions,function(i,e){
+                    var row = e[0];
+                    var column = overallColumn+e[1];
+                      
+                            
+                        
+                
+                
+                    $.each(mask,function(maskRow,maskRowContent){
+                        $.each(maskRowContent,function(maskColumn,curr){
+                            if (curr){
+                            
+                                var therow = Math.round(row+maskRow);
+                                var div = $('#t div:nth-child('+therow+')');
+                            
+                                var tmpr = div[0].childNodes[0];
+                            
+                                var rangeAppend = document.createRange();
+                                var start = column+maskColumn;
+                                //console.log(therow+"-"+start); 
+                                if (start>=0){
+                                    rangeAppend.setStart(tmpr,start);
+                                    rangeAppend.setEnd(tmpr, start+1);
+
+                                    s.addRange(rangeAppend);
+                                }else{
+                                    rangeAppend.setStart(tmpr,start+columns);
+                                    rangeAppend.setEnd(tmpr, start+1+columns);
+
+                                    s.addRange(rangeAppend);              
+                                }
+                            }                 
+                        });           
+                    });     
+                        
+                       
+                    
+                });
+
+
+
+              
+                     
+                overallColumn--;
+                if (Math.abs(overallColumn)==columns){
+                    overallColumn = 0;
+                }
+            },100);
+    
+            
+        });        
+    </script>
+    <style>
+        #t{
+            margin:0 auto;
+            width:800px;
+            height:640px;
+            border:1px solid #000;
+            font-family:"Courier New";
+            line-height:16px;
+            letter-spacing:6px;
+
+            font-size:16px;
+        }
+
+    </style>
+
+    <div id="t"></div>
+
+</div>

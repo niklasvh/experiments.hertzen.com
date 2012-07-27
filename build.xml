@@ -5,6 +5,22 @@
     <property name="lib.dir" location="../lib"/>
 
 
+    <target name="textanimation">
+        <property name="TITLE" value="Text selection animation"/>
+        <property name="URL" value="http://experiments.hertzen.com/textanimation/"/>
+        <property name="proj.dir" value="textanimation" />
+        
+        <antcall target="preload" inheritRefs="true" />
+        <replaceregexp match="^(.*)$" replace="${prepend}\1${append}" flags="s">
+   
+        </replaceregexp>
+        
+        <antcall target="postload" inheritRefs="true" />
+   
+    </target>
+    
+
+
     <target name="jsfeedback">
         <property name="TITLE" value="feedback.js"/>
         <property name="URL" value="http://hertzen.com/experiments/jsfeedback/"/>
