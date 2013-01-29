@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adaptive streaming with HTML5</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="src/VideoPlayer.js"></script>
+    <script src="src/VideoParser.js"></script>
+    <script src="src/BandwidthMonitor.js"></script>
+    <script src="src/Buffer.js"></script>
+    <script src="src/Media.js"></script>
+    <script src="src/XHR.js"></script>
+    <style>
+      .log {
+        white-space: pre;
+
+        font-size: 11px;
+        float:right;
+        width: 400px;
+        overflow:scroll;
+        height: 480px;
+      }
+      #video {
+        float:left;
+      }
+      body, html {
+        font-family: Arial;
+        margin:0;
+        padding:0;
+      }
+      #quality {
+        margin: 20px;
+      }
+      #quality:before {
+        content: "Downloading video: ";
+      }
+      #qualitya {
+        margin: 20px;
+      }
+      #qualitya:before {
+        content: "Downloading audio: ";
+      }
+      #bandwidth {
+        clear:both;
+        padding-top:10px;
+        margin: 20px;
+      }
+
+      #bandwidth:before {
+        display:block;
+        content: "Connection speed: " attr(data-value) "KBps";
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <video id="video" controls width="854" height="480" autoplay></video>
+      <div class="log"></div>
+    </div>
+    <div id="bandwidth" data-value="2048">
+      <input type="range" min="56" max="8192" />
+    </div>
+    <div id="quality"></div>
+    <div id="qualitya"></div>
+
+    <script>
+      (function() {
+        var $log = document.querySelector(".log");
+        var $quality = document.querySelector("#quality");
+        var $qualitya = document.querySelector("#qualitya");
+        var options = {
+          maxBandwidth: 2024*1024 / 8,
+          element: document.querySelector("#video"),
+          log: function(message) {
+            $log.appendChild(document.createTextNode(message + "\n"));
+          },
+          onqualitychange: function(representation) {
+            if (representation.quality) {
+              $quality.innerHTML = representation.quality + " (" + representation.codecs + ")";
+            }
+            if (representation.aquality) {
+              $qualitya.innerHTML = representation.aquality + " (" + representation.codecs + ")";
+            }
+          }
+        };
+        // http://yt-dash-mse-test.commondatastorage.googleapis.com/car-20120827-manifest.mpd
+        // http://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest
+        // http://yt-dash-mse-test.commondatastorage.googleapis.com/oops_cenc-20121114-manifest.mpd
+
+        var player = new VideoPlayer("http://yt-dash-mse-test.commondatastorage.googleapis.com/car-20120827-manifest.mpd", options);
+        document.querySelector("#bandwidth").addEventListener("change", function(event) {
+          options.maxBandwidth = event.target.value * 1024 / 8;
+          event.target.parentNode.setAttribute("data-value", event.target.value);
+          document.querySelector("#bandwidth").style.color = "#000"; // webkit reflow bug, fixed in 25.0
+        }, false);
+      })();
+    </script>
+  </body>
+</html>
