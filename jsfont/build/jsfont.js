@@ -1607,14 +1607,10 @@ JSFONT.Writer = function(len){
     };
     
     this.blob = function(){
-        window.URL = window.URL || window.webkitURL; 
-        BlobBuilder = window.MozBlobBuilder || window.WebKitBlobBuilder || window.BlobBuilder;
-        var bb = new BlobBuilder();
-        bb.append(buffer);
+        window.URL = window.URL || window.webkitURL;
+        blobitem = new Blob([buffer]);
 
-        return window.URL.createObjectURL(bb.getBlob());
-        
-        
+        return window.URL.createObjectURL(blobitem);
     };
     
     this.base64 = function(){       
